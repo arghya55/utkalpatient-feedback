@@ -119,7 +119,7 @@
 @media(max-width:768px){
 
   .home-card{
-    margin-top:-50px;
+    margin-top:0;
   }
 
   .home-title{
