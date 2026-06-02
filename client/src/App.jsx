@@ -1,14 +1,14 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Home from "./pages/Home";
-import OPDFeedback from "./pages/FeedbackForm";
-import IPDFeedback from "./pages/IpdFeedbackForm";
+import OPDFeedback from "./Pages/FeedbackForm";
+import IPDFeedback from "./Pages/IpdFeedbackForm";
 import GeneralFeedbackForm from "./Pages/GeneralFeedback";
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
-import ThankYou from "./pages/ThankYou";
+import ThankYou from "./Pages/ThankYou";
 
 import "./index.css";
 
