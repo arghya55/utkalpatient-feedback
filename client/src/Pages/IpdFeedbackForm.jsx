@@ -34,7 +34,7 @@ const IpdFeedbackForm = () => {
     icu: 0,
     ot: 0,
     ambulance: 0,
-    security:0,
+    security: 0,
 
     staffMention: "",
     inconvenience: "",
@@ -94,43 +94,43 @@ const IpdFeedbackForm = () => {
 
   };
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  if (
-    !formData.patientName ||
-    !formData.gender ||
-    !formData.ipNo ||
-    !formData.consultantName ||
-    !formData.bedCategory ||
-    !formData.bedNo ||
-    !formData.admissionDate ||
-    !formData.dischargeDate ||
-    !formData.contactNo
-  ) {
-    alert("Please fill all required fields");
-    return;
-  }
+    if (
+      !formData.patientName ||
+      !formData.gender ||
+      !formData.ipNo ||
+      !formData.consultantName ||
+      !formData.bedCategory ||
+      !formData.bedNo ||
+      !formData.admissionDate ||
+      !formData.dischargeDate ||
+      !formData.contactNo
+    ) {
+      alert("Please fill all required fields");
+      return;
+    }
 
-  if (formData.contactNo.length !== 10) {
-    alert("Mobile number must be 10 digits");
-    return;
-  }
+    if (formData.contactNo.length !== 10) {
+      alert("Mobile number must be 10 digits");
+      return;
+    }
 
-  try {
-    await API.post("/feedback", {
-      ...formData,
-      type: "IPD",
-    });
+    try {
+      await API.post("/feedback", {
+        ...formData,
+        type: "IPD",
+      });
 
       navigate("/thank-you");
 
-  } catch (error) {
-    console.log(error);
-  }
+    } catch (error) {
+      console.log(error);
+    }
 
-  console.log(formData);
-};
+    console.log(formData);
+  };
 
   const starQuestions = [
     {
@@ -220,17 +220,17 @@ const handleSubmit = async (e) => {
         onSubmit={handleSubmit}
       >
 
-      <div className="ipd-header">
-  <Link to="/">
-          <button className="back-btn">
-            Back To Home
-          </button>
-        </Link>
+        <div className="ipd-header">
+          <Link to="/">
+            <button className="back-btn">
+              Back To Home
+            </button>
+          </Link>
 
-  <div className="ipd-header-bar">
-    IPD FEEDBACK FORM
-  </div>
-</div>
+          <div className="ipd-header-bar">
+            IPD FEEDBACK FORM
+          </div>
+        </div>
 
         <p className="ipd-subtitle">
           Please give us your feedback on the services availed at our hospital
@@ -424,14 +424,14 @@ const handleSubmit = async (e) => {
 
           <div className="ipd-star-row">
 
-            {[1,2,3,4,5,6,7,8,9,10].map((star)=>(
+            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((star) => (
               <button
                 key={star}
                 type="button"
                 className={
                   formData.recommendStar >= star
-                  ? "star-active"
-                  : "star-btn"
+                    ? "star-active"
+                    : "star-btn"
                 }
                 onClick={() =>
                   setFormData({
@@ -466,7 +466,7 @@ const handleSubmit = async (e) => {
             "Medical procedures / OT",
             "House Keeping Services",
             "Caring & Kind Staff Behavior",
-          ].map((item)=>(
+          ].map((item) => (
             <label
               key={item}
               className="checkbox-label"
@@ -506,7 +506,7 @@ const handleSubmit = async (e) => {
             "Family Doctor referred",
             "Friend/ Family recommendation",
             "Service Experience",
-          ].map((item)=>(
+          ].map((item) => (
             <label
               key={item}
               className="checkbox-label"
@@ -531,38 +531,43 @@ const handleSubmit = async (e) => {
 
         {/* STAR QUESTIONS */}
 
-        {starQuestions.map((item)=>(
+        {starQuestions.map((item) => (
 
           <div
             key={item.field}
             className="ipd-question-block"
           >
 
-            <h3>{item.title}</h3>
+            <div className="question-header">
 
-            <p>{item.desc}</p>
+              <div>
+                <h3>{item.title}</h3>
+                <p>{item.desc}</p>
+              </div>
 
-            <div className="ipd-star-row">
+              <div className="ipd-star-row">
 
-              {[1,2,3,4,5].map((star)=>(
-                <button
-                  key={star}
-                  type="button"
-                  className={
-                    formData[item.field] >= star
-                    ? "star-active"
-                    : "star-btn"
-                  }
-                  onClick={() =>
-                    setFormData({
-                      ...formData,
-                      [item.field]: star,
-                    })
-                  }
-                >
-                  ★
-                </button>
-              ))}
+                {[1, 2, 3, 4, 5].map((star) => (
+                  <button
+                    key={star}
+                    type="button"
+                    className={
+                      formData[item.field] >= star
+                        ? "star-active"
+                        : "star-btn"
+                    }
+                    onClick={() =>
+                      setFormData({
+                        ...formData,
+                        [item.field]: star,
+                      })
+                    }
+                  >
+                    ★
+                  </button>
+                ))}
+
+              </div>
 
             </div>
 
@@ -570,12 +575,12 @@ const handleSubmit = async (e) => {
 
         ))}
 
-        {/* QUESTION 25 */}
+        {/* QUESTION 28 */}
 
         <div className="ipd-input-group">
 
           <label>
-            25. Did any of our staff who provided an exceptional service that you feel worth a mention?
+            26. Did any of our staff who provided an exceptional service that you feel worth a mention?
           </label>
 
           <textarea
@@ -586,12 +591,12 @@ const handleSubmit = async (e) => {
 
         </div>
 
-        {/* QUESTION 26 */}
+        {/* QUESTION 27 */}
 
         <div className="ipd-input-group">
 
           <label>
-            26. Any Inconvenience faced?
+            27. Any Inconvenience faced?
           </label>
 
           <textarea
@@ -602,12 +607,12 @@ const handleSubmit = async (e) => {
 
         </div>
 
-        {/* QUESTION 27 */}
+        {/* QUESTION 28 */}
 
         <div className="ipd-input-group">
 
           <label>
-            27. Any suggestion to improve our hospital?
+            28. Any suggestion to improve our hospital?
           </label>
 
           <textarea

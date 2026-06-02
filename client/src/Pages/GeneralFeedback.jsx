@@ -185,9 +185,20 @@ const GeneralFeedbackForm = () => {
               />
             </div>
 
+            <div className="general-input-group">
+              <label>Name <span className="star">*</span></label>
+              <input
+                type="text"
+                name="name"
+                value={formData.name || ""}
+                onChange={handleInput}
+                required
+              />
+            </div>
+
 
             <div className="general-input-group">
-              <label>Gender</label>
+              <label>Gender <span className="star">*</span></label>
               <select
                 name="gender"
                 value={formData.gender}
@@ -214,7 +225,17 @@ const GeneralFeedbackForm = () => {
             </div>
 
             <div className="general-input-group">
-              <label>Mobile Number</label>
+              <label>Email ID </label>
+              <input
+                type="email"
+                name="email"
+                value={formData.email || ""}
+                onChange={handleInput}
+              />
+            </div>
+
+            <div className="general-input-group">
+              <label>Mobile Number </label>
               <input
                 type="text"
                 name="mobile"

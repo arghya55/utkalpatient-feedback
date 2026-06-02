@@ -1,48 +1,146 @@
+/* =========================
+   PAGE
+========================= */
+
 .ipd-page{
-  width:100%;
   min-height:100vh;
-  background:#f1f5f9;
   padding:40px 20px;
   display:flex;
   justify-content:center;
-}
+  align-items:flex-start;
 
-.ipd-form{
-  width:100%;
-  max-width:950px;
-  background:#ffffff;
-  border-radius:16px;
-  padding:40px;
-  box-shadow:0 10px 30px rgba(15,23,42,0.08);
-  border:1px solid #e2e8f0;
+  background:
+  linear-gradient(
+    135deg,
+    #e0f2fe,
+    #dcfce7,
+    #f8fafc
+  );
 }
 
 /* =========================
-   TITLE
+   FORM CARD
 ========================= */
 
-.ipd-main-title{
-  font-size:38px;
+.ipd-form{
+  width:100%;
+  max-width:1000px;
+
+  background:rgba(255,255,255,0.95);
+
+  backdrop-filter:blur(10px);
+
+  border-radius:24px;
+
+  padding:40px;
+
+  box-shadow:
+  0 25px 50px rgba(0,0,0,.08);
+
+  border:1px solid rgba(255,255,255,.6);
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.ipd-header{
+  width:100%;
+  margin-bottom:20px;
+}
+
+.ipd-back-btn{
+  border:none;
+  background:#0f172a;
+  color:white;
+  padding:12px 22px;
+  border-radius:12px;
+  font-weight:600;
+  cursor:pointer;
+  margin-bottom:15px;
+  transition:.3s;
+}
+
+.ipd-back-btn:hover{
+  background:#1e293b;
+  transform:translateY(-2px);
+}
+
+.ipd-header-bar{
+  background:
+  linear-gradient(
+    135deg,
+    #16a34a,
+    #14532d
+  );
+
+  color:white;
+  text-align:center;
+  padding:18px;
+  border-radius:16px;
+  font-size:22px;
+  font-weight:500;
+  letter-spacing:1px;
+
+  box-shadow:
+  0 12px 25px rgba(22,163,74,.25);
+}
+
+/* =========================
+   HOSPITAL BANNER
+========================= */
+
+.hospital-banner{
+  text-align:center;
+  margin:25px 0;
+}
+
+.hospital-banner h2{
+  color:#15803d;
+  font-size:30px;
   font-weight:700;
-  color:#0f172a;
   margin-bottom:10px;
 }
 
-.ipd-subtitle{
-  font-size:17px;
-  color:#000000;
-  margin-bottom:35px;
-  text-align: center;
-  line-height:1.6;
+.hospital-banner p{
+  color:#64748b;
+  font-size:16px;
 }
 
-.ipd-section-title{
-  font-size:24px;
-  font-weight:600;
-  color:#16a34a;
-  margin-bottom:25px;
-  padding-bottom:10px;
-  border-bottom:2px solid #dcfce7;
+/* =========================
+   PROGRESS BAR
+========================= */
+
+.progress-bar{
+  width:100%;
+  height:10px;
+  background:#e2e8f0;
+  border-radius:20px;
+  margin:20px 0 30px;
+  overflow:hidden;
+}
+
+.progress-fill{
+  width:100%;
+  height:100%;
+  background:
+  linear-gradient(
+    90deg,
+    #16a34a,
+    #22c55e
+  );
+}
+
+/* =========================
+   SUBTITLE
+========================= */
+
+.ipd-subtitle{
+  font-size:17px;
+  color:#334155;
+  text-align:center;
+  margin-bottom:35px;
+  line-height:1.7;
 }
 
 /* =========================
@@ -58,23 +156,23 @@
 .ipd-input-group label{
   font-size:15px;
   font-weight:600;
-  color:#1e293b;
+  color:#0f172a;
   margin-bottom:8px;
 }
 
 .ipd-input-group input,
 .ipd-input-group textarea{
   width:100%;
-  border:1px solid #cbd5e1;
-  border-radius:10px;
-  padding:14px 16px;
+  border:2px solid #e2e8f0;
+  border-radius:14px;
+  padding:15px 18px;
   font-size:15px;
-  background:#fff;
-  transition:0.3s;
+  background:white;
+  transition:.3s;
 }
 
 .ipd-input-group input{
-  height:52px;
+  height:55px;
 }
 
 .ipd-input-group textarea{
@@ -82,11 +180,18 @@
   resize:none;
 }
 
+.ipd-input-group input:hover,
+.ipd-input-group textarea:hover{
+  border-color:#16a34a;
+}
+
 .ipd-input-group input:focus,
 .ipd-input-group textarea:focus{
   outline:none;
   border-color:#16a34a;
-  box-shadow:0 0 0 4px rgba(22,163,74,0.12);
+
+  box-shadow:
+  0 0 0 5px rgba(22,163,74,.15);
 }
 
 /* =========================
@@ -96,49 +201,53 @@
 .ipd-radio-group{
   display:flex;
   gap:30px;
-  margin-top:8px;
+  margin-top:10px;
 }
 
 .ipd-radio-group label{
   display:flex;
   align-items:center;
   gap:8px;
-  font-size:15px;
-  color:#334155;
   font-weight:500;
+  color:#334155;
 }
 
 .ipd-radio-group input{
-  accent-color:#16a34a;
   width:18px;
   height:18px;
+  accent-color:#16a34a;
 }
 
 /* =========================
-   QUESTION BLOCK
+   QUESTION CARD
 ========================= */
 
 .ipd-question-block{
-  margin-top:40px;
-  padding:28px;
-  background:#f8fafc;
-  border:1px solid #e2e8f0;
-  border-radius:14px;
+  margin-top:30px;
+
+  padding:25px;
+
+  border-radius:18px;
+
+  background:white;
+
+  border-left:6px solid #16a34a;
+
+  box-shadow:
+  0 8px 20px rgba(0,0,0,.05);
 }
 
 .ipd-question-block h3{
   font-size:20px;
   color:#0f172a;
-  line-height:1.5;
+  line-height:1.6;
   margin-bottom:12px;
-  font-weight:600;
 }
 
 .ipd-question-block p{
-  font-size:15px;
   color:#64748b;
-  margin-bottom:18px;
   line-height:1.7;
+  margin-bottom:18px;
 }
 
 /* =========================
@@ -149,17 +258,16 @@
   display:flex;
   align-items:flex-start;
   gap:10px;
-  margin-bottom:14px;
-  font-size:15px;
+  margin-bottom:12px;
   color:#334155;
-  line-height:1.5;
+  line-height:1.6;
 }
 
 .checkbox-label input{
-  margin-top:3px;
-  accent-color:#16a34a;
+  margin-top:4px;
   width:18px;
   height:18px;
+  accent-color:#16a34a;
 }
 
 /* =========================
@@ -170,59 +278,98 @@
   display:flex;
   flex-wrap:wrap;
   gap:12px;
-  margin-top:20px;
+  margin-top:15px;
 }
 
 .star-btn,
 .star-active{
-  width:48px;
-  height:48px;
+  width:55px;
+  height:55px;
+
   border:none;
+
   border-radius:14px;
-  font-size:24px;
+
+  font-size:28px;
+
   cursor:pointer;
-  transition:0.3s;
+
+  transition:.3s;
 }
 
 .star-btn{
-  background:#e2e8f0;
+  background:#f1f5f9;
   color:#94a3b8;
 }
 
 .star-btn:hover{
   background:#16a34a;
-  color:#fff;
-  transform:translateY(-3px);
+  color:white;
+  transform:scale(1.08);
 }
 
 .star-active{
   background:#16a34a;
-  color:#fff;
-  box-shadow:0 8px 18px rgba(22,163,74,0.25);
+  color:white;
+
+  box-shadow:
+  0 10px 20px rgba(22,163,74,.35);
 }
 
 /* =========================
-   BUTTON
+   SUBMIT BUTTON
 ========================= */
 
 .ipd-submit-btn{
   width:100%;
-  height:56px;
+  height:60px;
+
   margin-top:40px;
+
   border:none;
-  border-radius:12px;
-  background:#16a34a;
-  color:#fff;
-  font-size:18px;
-  font-weight:600;
+
+  border-radius:16px;
+
+  background:
+  linear-gradient(
+    135deg,
+    #16a34a,
+    #15803d
+  );
+
+  color:white;
+
+  font-size:20px;
+
+  font-weight:700;
+
   cursor:pointer;
-  transition:0.3s;
+
+  transition:.3s;
 }
 
 .ipd-submit-btn:hover{
-  background:#15803d;
-  transform:translateY(-2px);
-  box-shadow:0 10px 20px rgba(22,163,74,0.22);
+  transform:translateY(-3px);
+
+  box-shadow:
+  0 15px 30px rgba(22,163,74,.35);
+}
+
+/* =========================
+   SCROLLBAR
+========================= */
+
+::-webkit-scrollbar{
+  width:8px;
+}
+
+::-webkit-scrollbar-thumb{
+  background:#16a34a;
+  border-radius:20px;
+}
+
+::-webkit-scrollbar-track{
+  background:#f1f5f9;
 }
 
 /* =========================
@@ -235,12 +382,17 @@
     padding:25px;
   }
 
-  .ipd-main-title{
-    font-size:30px;
+  .ipd-header-bar{
+    font-size:22px;
+    padding:18px;
+  }
+
+  .hospital-banner h2{
+    font-size:24px;
   }
 
   .ipd-question-block{
-    padding:22px;
+    padding:20px;
   }
 
   .ipd-question-block h3{
@@ -249,9 +401,9 @@
 
   .star-btn,
   .star-active{
-    width:42px;
-    height:42px;
-    font-size:20px;
+    width:45px;
+    height:45px;
+    font-size:22px;
   }
 
 }
@@ -264,28 +416,33 @@
 
   .ipd-form{
     padding:18px;
-    border-radius:12px;
+    border-radius:16px;
   }
 
-  .ipd-main-title{
-    font-size:24px;
+  .ipd-header-bar{
+    font-size:18px;
+    padding:15px;
+  }
+
+  .hospital-banner h2{
+    font-size:22px;
+  }
+
+  .hospital-banner p{
+    font-size:14px;
   }
 
   .ipd-subtitle{
     font-size:14px;
   }
 
-  .ipd-section-title{
-    font-size:20px;
-  }
-
   .ipd-radio-group{
     flex-direction:column;
-    gap:14px;
+    gap:12px;
   }
 
   .ipd-question-block{
-    padding:18px;
+    padding:16px;
   }
 
   .ipd-question-block h3{
@@ -297,39 +454,65 @@
     width:38px;
     height:38px;
     font-size:18px;
-    border-radius:10px;
   }
 
   .ipd-submit-btn{
-    height:50px;
+    height:52px;
     font-size:16px;
   }
-
 }
 
-.ipd-header {
-  width: 100%;
-  margin-bottom: 25px;
-  position: relative;
+.question-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:18px;
 }
 
-.ipd-back-btn {
-  background: #6d28d9;
-  color: #fff;
-  border: none;
-  padding: 10px 18px;
-  border-radius: 10px;
-  font-weight: 600;
-  cursor: pointer;
-  margin-bottom: 10px;
+.question-header h3{
+  margin-bottom:10px;
 }
 
-.ipd-header-bar {
-  background: linear-gradient(90deg, #16a34a, #14532d);
-  color: white;
-  text-align: center;
-  padding: 18px;
-  font-size: 22px;
-  font-weight: 700;
-  border-radius: 10px;
+.question-header p{
+  margin:0;
+}
+
+.ipd-star-row{
+  display:flex;
+  gap:8px;
+  flex-shrink:0;
+}
+
+.star-btn,
+.star-active{
+  width:40px;
+  height:40px;
+  border:none;
+  border-radius:8px;
+  font-size:20px;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.star-btn{
+  background:#e2e8f0;
+  color:#94a3b8;
+}
+
+.star-active{
+  background:#16a34a;
+  color:#fff;
+}
+
+@media(max-width:768px){
+
+  .question-header{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .ipd-star-row{
+    margin-top:10px;
+  }
+
 }
