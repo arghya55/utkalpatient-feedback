@@ -290,98 +290,141 @@
 
 /* RESPONSIVE */
 
-@media(max-width:768px){
+@media (max-width:768px){
 
-  @media (max-width: 768px) {
+  .premium-feedback-card{
+    border-radius:20px;
+  }
+
+  .premium-form-body{
+    padding:15px;
+  }
+
+  .premium-header{
+    font-size:24px;
+    padding:18px 10px;
+    letter-spacing:1px;
+  }
+
+  .premium-input-grid{
+    grid-template-columns:1fr;
+    gap:15px;
+  }
+
+  .premium-input-group input,
+  .premium-input-group select{
+    height:52px;
+    font-size:15px;
+  }
+
+  /* TABLE MOBILE */
 
   .premium-feedback-table,
   .premium-feedback-table thead,
   .premium-feedback-table tbody,
   .premium-feedback-table th,
   .premium-feedback-table td,
-  .premium-feedback-table tr {
-    display: block;
-    width: 100%;
+  .premium-feedback-table tr{
+    display:block;
+    width:100%;
   }
 
-  .premium-feedback-table thead {
-    display: none;
+  .premium-feedback-table{
+    min-width:100%;
   }
 
-  .premium-feedback-table tr {
-    margin-bottom: 20px;
-    border: 1px solid #ddd;
-    border-radius: 12px;
-    overflow: hidden;
-    background: #fff;
+  .premium-feedback-table thead{
+    display:none;
   }
 
-  .premium-feedback-table td {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    text-align: left;
-    padding: 14px;
-    border: none;
-    border-bottom: 1px solid #eee;
+  .premium-feedback-table tr{
+    background:white;
+    border-radius:15px;
+    margin-bottom:20px;
+    overflow:hidden;
+
+    box-shadow:
+    0 4px 15px rgba(0,0,0,0.08);
   }
 
-  .premium-feedback-table td:first-child {
-    display: block;
-    background: #16a34a;
-    color: white;
-    font-weight: 700;
-    font-size: 16px;
-    padding: 15px;
-    min-width: 100%;
+  /* Service Name */
+
+  .premium-feedback-table td:first-child{
+    background:
+    linear-gradient(
+      135deg,
+      #16a34a,
+      #15803d
+    );
+
+    color:white;
+    font-size:15px;
+    font-weight:700;
+    padding:14px;
+
+    min-width:100%;
   }
 
-  .premium-feedback-table td:nth-child(2)::before {
-    content: "Excellent";
-    font-weight: 600;
+  /* Rating Rows */
+
+  .premium-feedback-table td:not(:first-child){
+    display:flex;
+    align-items:center;
+    justify-content:flex-start;
+
+    gap:8px;
+
+    padding:12px 15px;
+
+    border-bottom:1px solid #eee;
+
+    font-size:14px;
   }
 
-  .premium-feedback-table td:nth-child(3)::before {
-    content: "Good";
-    font-weight: 600;
+  .premium-feedback-table td:nth-child(2)::before{
+    content:"Excellent";
+    font-weight:600;
   }
 
-  .premium-feedback-table td:nth-child(4)::before {
-    content: "Fair";
-    font-weight: 600;
+  .premium-feedback-table td:nth-child(3)::before{
+    content:"Good";
+    font-weight:600;
   }
 
-  .premium-feedback-table td:nth-child(5)::before {
-    content: "Needs Improvement";
-    font-weight: 600;
+  .premium-feedback-table td:nth-child(4)::before{
+    content:"Fair";
+    font-weight:600;
   }
 
-  .premium-feedback-table td:nth-child(6)::before {
-    content: "Poor";
-    font-weight: 600;
+  .premium-feedback-table td:nth-child(5)::before{
+    content:"Needs Improvement";
+    font-weight:600;
   }
 
-  .premium-feedback-table input[type="radio"] {
-    width: 24px;
-    height: 24px;
-  }
-}
-
-  .premium-form-body{
-    padding:25px;
+  .premium-feedback-table td:nth-child(6)::before{
+    content:"Poor";
+    font-weight:600;
   }
 
-  .premium-input-grid{
-    grid-template-columns:1fr;
-  }
-
-  .premium-title-box{
-    font-size:28px;
-    padding:15px 25px;
+  .premium-feedback-table input[type="radio"]{
+    width:20px;
+    height:20px;
+    margin:0;
+    flex-shrink:0;
   }
 
   .premium-comment-title{
     font-size:22px;
+  }
+
+  .premium-comment-box{
+    min-height:150px;
+  }
+
+  .premium-submit-btn{
+    width:100%;
+    padding:16px;
+    font-size:18px;
   }
 
 }
