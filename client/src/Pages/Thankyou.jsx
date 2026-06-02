@@ -1,4 +1,4 @@
-import "./ThankYou.css";
+import "./Thankyou.css";
 import { Link } from "react-router-dom";
 
 const ThankYou = () => {
