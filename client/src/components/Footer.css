@@ -1,0 +1,27 @@
+.footer{
+  margin-top:auto;
+  background:#111827;
+  color:white;
+  padding:40px 20px;
+}
+
+.footer-container{
+  max-width:1200px;
+  margin:auto;
+  text-align:center;
+}
+
+.footer-title{
+  font-size:28px;
+  margin-bottom:10px;
+}
+
+.footer-text{
+  color:#d1d5db;
+  margin-bottom:15px;
+}
+
+.footer-copy{
+  color:#9ca3af;
+  font-size:14px;
+}

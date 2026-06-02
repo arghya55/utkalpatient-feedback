@@ -1,0 +1,335 @@
+.ipd-page{
+  width:100%;
+  min-height:100vh;
+  background:#f1f5f9;
+  padding:40px 20px;
+  display:flex;
+  justify-content:center;
+}
+
+.ipd-form{
+  width:100%;
+  max-width:950px;
+  background:#ffffff;
+  border-radius:16px;
+  padding:40px;
+  box-shadow:0 10px 30px rgba(15,23,42,0.08);
+  border:1px solid #e2e8f0;
+}
+
+/* =========================
+   TITLE
+========================= */
+
+.ipd-main-title{
+  font-size:38px;
+  font-weight:700;
+  color:#0f172a;
+  margin-bottom:10px;
+}
+
+.ipd-subtitle{
+  font-size:17px;
+  color:#000000;
+  margin-bottom:35px;
+  text-align: center;
+  line-height:1.6;
+}
+
+.ipd-section-title{
+  font-size:24px;
+  font-weight:600;
+  color:#16a34a;
+  margin-bottom:25px;
+  padding-bottom:10px;
+  border-bottom:2px solid #dcfce7;
+}
+
+/* =========================
+   INPUT SECTION
+========================= */
+
+.ipd-input-group{
+  display:flex;
+  flex-direction:column;
+  margin-bottom:24px;
+}
+
+.ipd-input-group label{
+  font-size:15px;
+  font-weight:600;
+  color:#1e293b;
+  margin-bottom:8px;
+}
+
+.ipd-input-group input,
+.ipd-input-group textarea{
+  width:100%;
+  border:1px solid #cbd5e1;
+  border-radius:10px;
+  padding:14px 16px;
+  font-size:15px;
+  background:#fff;
+  transition:0.3s;
+}
+
+.ipd-input-group input{
+  height:52px;
+}
+
+.ipd-input-group textarea{
+  min-height:130px;
+  resize:none;
+}
+
+.ipd-input-group input:focus,
+.ipd-input-group textarea:focus{
+  outline:none;
+  border-color:#16a34a;
+  box-shadow:0 0 0 4px rgba(22,163,74,0.12);
+}
+
+/* =========================
+   RADIO
+========================= */
+
+.ipd-radio-group{
+  display:flex;
+  gap:30px;
+  margin-top:8px;
+}
+
+.ipd-radio-group label{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:15px;
+  color:#334155;
+  font-weight:500;
+}
+
+.ipd-radio-group input{
+  accent-color:#16a34a;
+  width:18px;
+  height:18px;
+}
+
+/* =========================
+   QUESTION BLOCK
+========================= */
+
+.ipd-question-block{
+  margin-top:40px;
+  padding:28px;
+  background:#f8fafc;
+  border:1px solid #e2e8f0;
+  border-radius:14px;
+}
+
+.ipd-question-block h3{
+  font-size:20px;
+  color:#0f172a;
+  line-height:1.5;
+  margin-bottom:12px;
+  font-weight:600;
+}
+
+.ipd-question-block p{
+  font-size:15px;
+  color:#64748b;
+  margin-bottom:18px;
+  line-height:1.7;
+}
+
+/* =========================
+   CHECKBOX
+========================= */
+
+.checkbox-label{
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  margin-bottom:14px;
+  font-size:15px;
+  color:#334155;
+  line-height:1.5;
+}
+
+.checkbox-label input{
+  margin-top:3px;
+  accent-color:#16a34a;
+  width:18px;
+  height:18px;
+}
+
+/* =========================
+   STAR RATING
+========================= */
+
+.ipd-star-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  margin-top:20px;
+}
+
+.star-btn,
+.star-active{
+  width:48px;
+  height:48px;
+  border:none;
+  border-radius:14px;
+  font-size:24px;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.star-btn{
+  background:#e2e8f0;
+  color:#94a3b8;
+}
+
+.star-btn:hover{
+  background:#16a34a;
+  color:#fff;
+  transform:translateY(-3px);
+}
+
+.star-active{
+  background:#16a34a;
+  color:#fff;
+  box-shadow:0 8px 18px rgba(22,163,74,0.25);
+}
+
+/* =========================
+   BUTTON
+========================= */
+
+.ipd-submit-btn{
+  width:100%;
+  height:56px;
+  margin-top:40px;
+  border:none;
+  border-radius:12px;
+  background:#16a34a;
+  color:#fff;
+  font-size:18px;
+  font-weight:600;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.ipd-submit-btn:hover{
+  background:#15803d;
+  transform:translateY(-2px);
+  box-shadow:0 10px 20px rgba(22,163,74,0.22);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:768px){
+
+  .ipd-form{
+    padding:25px;
+  }
+
+  .ipd-main-title{
+    font-size:30px;
+  }
+
+  .ipd-question-block{
+    padding:22px;
+  }
+
+  .ipd-question-block h3{
+    font-size:18px;
+  }
+
+  .star-btn,
+  .star-active{
+    width:42px;
+    height:42px;
+    font-size:20px;
+  }
+
+}
+
+@media(max-width:480px){
+
+  .ipd-page{
+    padding:15px;
+  }
+
+  .ipd-form{
+    padding:18px;
+    border-radius:12px;
+  }
+
+  .ipd-main-title{
+    font-size:24px;
+  }
+
+  .ipd-subtitle{
+    font-size:14px;
+  }
+
+  .ipd-section-title{
+    font-size:20px;
+  }
+
+  .ipd-radio-group{
+    flex-direction:column;
+    gap:14px;
+  }
+
+  .ipd-question-block{
+    padding:18px;
+  }
+
+  .ipd-question-block h3{
+    font-size:16px;
+  }
+
+  .star-btn,
+  .star-active{
+    width:38px;
+    height:38px;
+    font-size:18px;
+    border-radius:10px;
+  }
+
+  .ipd-submit-btn{
+    height:50px;
+    font-size:16px;
+  }
+
+}
+
+.ipd-header {
+  width: 100%;
+  margin-bottom: 25px;
+  position: relative;
+}
+
+.ipd-back-btn {
+  background: #6d28d9;
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.ipd-header-bar {
+  background: linear-gradient(90deg, #16a34a, #14532d);
+  color: white;
+  text-align: center;
+  padding: 18px;
+  font-size: 22px;
+  font-weight: 700;
+  border-radius: 10px;
+}
