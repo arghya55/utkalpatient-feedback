@@ -197,17 +197,17 @@ const GeneralFeedbackForm = () => {
             </div>
 
 
-            <div className="general-input-group">
+           <div className="general-input-group">
               <label>Gender <span className="star">*</span></label>
               <select
                 name="gender"
                 value={formData.gender}
                 onChange={handleInput}
-                className={
-                  errors.gender
-                    ? "general-error"
-                    : ""
-                }
+                // className={
+                //   errors.gender
+                //     ? "general-error"
+                //     : ""
+                // }
               >
                 <option value="">
                   Select Gender
@@ -242,11 +242,11 @@ const GeneralFeedbackForm = () => {
                 value={formData.mobile}
                 onChange={handleInput}
                 maxLength="10"
-                className={
-                  errors.mobile
-                    ? "general-error"
-                    : ""
-                }
+                // className={
+                //   errors.mobile
+                //     ? "general-error"
+                //     : ""
+                // }
               />
             </div>
 
