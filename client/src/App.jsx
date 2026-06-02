@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Home from "./pages/Home";
+import Home from "./Pages/Home";
 import OPDFeedback from "./Pages/FeedbackForm";
 import IPDFeedback from "./Pages/IpdFeedbackForm";
 import GeneralFeedbackForm from "./Pages/GeneralFeedback";
@@ -8,7 +8,7 @@ import GeneralFeedbackForm from "./Pages/GeneralFeedback";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
-import ThankYou from "./Pages/ThankYou";
+import ThankYou from "./Pages/Thankyou";
 
 import "./index.css";
 
