@@ -18,9 +18,9 @@ const DoctorAnalytics = () => {
     try {
 
       const res =
-      await API.get(
-        "/analytics/doctor-analytics"
-      );
+        await API.get(
+          "/analytics/doctor-analytics"
+        );
 
       setData(res.data);
 
@@ -33,104 +33,118 @@ const DoctorAnalytics = () => {
   };
 
   return (
-  <div className="analytics-page">
 
-    <h1 className="analytics-title">
-      Doctor Wise Analytics Dashboard
-    </h1>
+    <div className="analytics-page">
 
-    <div className="analytics-grid">
+      <h1 className="analytics-title">
+        Doctor Wise Analytics Dashboard
+      </h1>
 
-      {data.map((doctor) => (
+      <div className="analytics-grid">
 
-        <div
-          key={doctor.doctorName}
-          className="analytics-card"
-        >
+        {data.map((doctor) => (
 
-          <h2 className="doctor-name">
-            👨‍⚕️ {doctor.doctorName}
-          </h2>
+          <div
+            key={doctor.doctorName}
+            className="analytics-card"
+          >
 
-          <div className="stats-grid">
+            <h2 className="doctor-name">
+              👨‍⚕️ {doctor.doctorName}
+            </h2>
 
-            <div className="stat-box total">
-              <h3>Total Feedback</h3>
-              <p>{doctor.totalFeedback}</p>
+            <div className="stats-grid">
+
+              <div className="stat-box total">
+                <h3>Total Feedback</h3>
+                <p>{doctor.totalFeedback}</p>
+              </div>
+
+              <div className="stat-box rating">
+                <h3>Average Rating</h3>
+                <p>
+                  ⭐ {doctor.averageRating}
+                </p>
+              </div>
+
+              <div className="stat-box excellent">
+                <h3>Excellent</h3>
+                <p>{doctor.excellent}</p>
+              </div>
+
+              <div className="stat-box good">
+                <h3>Good</h3>
+                <p>{doctor.good}</p>
+              </div>
+
+              <div className="stat-box fair">
+                <h3>Fair</h3>
+                <p>{doctor.fair}</p>
+              </div>
+
+              <div className="stat-box improve">
+                <h3>
+                  Needs Improvement
+                </h3>
+                <p>
+                  {doctor.needsImprovement}
+                </p>
+              </div>
+
+              <div className="stat-box poor">
+                <h3>Poor</h3>
+                <p>{doctor.poor}</p>
+              </div>
+
             </div>
 
-            <div className="stat-box rating">
-              <h3>Average Rating</h3>
-              <p>⭐ {doctor.averageRating}</p>
-            </div>
+            <div className="comments-box">
 
-            <div className="stat-box excellent">
-              <h3>Excellent</h3>
-              <p>{doctor.excellent}</p>
-            </div>
+              <h3>
+                Recent Comments
+              </h3>
 
-            <div className="stat-box good">
-              <h3>Good</h3>
-              <p>{doctor.good}</p>
-            </div>
+              {doctor.comments.length > 0 ? (
 
-            <div className="stat-box fair">
-              <h3>Fair</h3>
-              <p>{doctor.fair}</p>
-            </div>
+                <ul>
 
-            <div className="stat-box improve">
-              <h3>Needs Improvement</h3>
-              <p>{doctor.needsImprovement}</p>
-            </div>
+                  {doctor.comments
+                    .slice(-5)
+                    .map(
+                      (
+                        comment,
+                        index
+                      ) => (
 
-            <div className="stat-box poor">
-              <h3>Poor</h3>
-              <p>{doctor.poor}</p>
+                        <li key={index}>
+                          {comment}
+                        </li>
+
+                      )
+                    )}
+
+                </ul>
+
+              ) : (
+
+                <p>
+                  No Comments Available
+                </p>
+
+              )}
+
             </div>
 
           </div>
 
-          <div className="comments-box">
+        ))}
 
-            <h3 className="comments-title">
-              Recent Comments
-            </h3>
-
-            {doctor.comments?.length > 0 ? (
-
-              <ul className="comment-list">
-
-                {doctor.comments
-                  .slice(-5)
-                  .map((comment, index) => (
-
-                    <li key={index}>
-                      {comment}
-                    </li>
-
-                  ))}
-
-              </ul>
-
-            ) : (
-
-              <p className="no-comment">
-                No Comments Available
-              </p>
-
-            )}
-
-          </div>
-
-        </div>
-
-      ))}
+      </div>
 
     </div>
 
-  </div>
-);
+  );
+
 };
 
 export default DoctorAnalytics;

@@ -1,10 +1,7 @@
-/* PAGE */
-
 .analytics-page{
   min-height:100vh;
   padding:40px 20px;
-  background:
-  linear-gradient(
+  background:linear-gradient(
     135deg,
     #f0fdf4,
     #ecfeff
@@ -13,26 +10,22 @@
 
 .analytics-title{
   text-align:center;
-  font-size:42px;
+  font-size:40px;
   font-weight:800;
   color:#14532d;
   margin-bottom:40px;
 }
 
-/* GRID */
-
 .analytics-grid{
   display:grid;
   grid-template-columns:
-  repeat(auto-fit,minmax(350px,1fr));
+  repeat(auto-fit,minmax(420px,1fr));
   gap:25px;
 }
 
-/* CARD */
-
 .analytics-card{
   background:white;
-  border-radius:25px;
+  border-radius:20px;
   padding:25px;
   box-shadow:
   0 10px 30px rgba(0,0,0,0.08);
@@ -44,135 +37,128 @@
   transform:translateY(-5px);
 
   box-shadow:
-  0 20px 40px rgba(0,0,0,0.12);
+  0 15px 35px rgba(0,0,0,0.12);
 }
-
-/* DOCTOR */
 
 .doctor-name{
+  text-align:center;
+  color:#166534;
   font-size:28px;
+  margin-bottom:25px;
   font-weight:800;
-  color:#15803d;
-  margin-bottom:15px;
 }
-
-/* STATS */
 
 .stats-grid{
   display:grid;
   grid-template-columns:
   repeat(2,1fr);
-
-  gap:12px;
-
-  margin-top:20px;
+  gap:15px;
 }
 
 .stat-box{
-  padding:15px;
-  border-radius:15px;
+  border-radius:16px;
+  padding:18px;
   text-align:center;
-  font-weight:700;
+  color:white;
 }
 
 .stat-box h3{
   font-size:14px;
-  margin-bottom:8px;
+  margin-bottom:10px;
+  font-weight:600;
 }
 
 .stat-box p{
-  font-size:24px;
+  font-size:26px;
+  font-weight:800;
 }
 
-/* COLORS */
-
 .total{
-  background:#dbeafe;
-  color:#1d4ed8;
+  background:#2563eb;
 }
 
 .rating{
-  background:#fef9c3;
-  color:#ca8a04;
+  background:#f59e0b;
 }
 
 .excellent{
-  background:#dcfce7;
-  color:#15803d;
+  background:#16a34a;
 }
 
 .good{
-  background:#ccfbf1;
-  color:#0f766e;
+  background:#22c55e;
 }
 
 .fair{
-  background:#fde68a;
-  color:#b45309;
+  background:#f97316;
 }
 
 .improve{
-  background:#fed7aa;
-  color:#c2410c;
+  background:#dc2626;
 }
 
 .poor{
-  background:#fee2e2;
-  color:#dc2626;
+  background:#7f1d1d;
 }
-
-/* COMMENTS */
 
 .comments-box{
   margin-top:25px;
+  background:#f8fafc;
+  border-radius:16px;
+  padding:20px;
 }
 
 .comments-title{
   font-size:20px;
-  font-weight:700;
+  margin-bottom:15px;
   color:#111827;
-  margin-bottom:10px;
+  font-weight:700;
 }
 
 .comment-list{
   list-style:none;
   padding:0;
+  margin:0;
 }
 
 .comment-list li{
-  background:#f9fafb;
-  border-left:4px solid #16a34a;
+  background:white;
   padding:12px;
-  margin-bottom:10px;
   border-radius:10px;
-  color:#374151;
-}
+  margin-bottom:10px;
 
-/* EMPTY */
+  border-left:5px solid #16a34a;
+
+  box-shadow:
+  0 3px 8px rgba(0,0,0,0.05);
+}
 
 .no-comment{
   color:#6b7280;
+  text-align:center;
   font-style:italic;
 }
-
-/* MOBILE */
 
 @media(max-width:768px){
 
   .analytics-title{
-    font-size:30px;
+    font-size:28px;
   }
 
-  .doctor-name{
-    font-size:22px;
+  .analytics-grid{
+    grid-template-columns:1fr;
   }
 
   .stats-grid{
     grid-template-columns:1fr;
   }
 
-  .analytics-card{
-    padding:18px;
+  .doctor-name{
+    font-size:22px;
+  }
+
+  .stat-box p{
+    font-size:22px;
   }
 
 }

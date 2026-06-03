@@ -52,7 +52,11 @@ app.use(
   analyticsRoutes
 );
 
-  
+app.use(
+  "/api/analytics",
+  doctorAnalyticsRoutes
+);
+
 // Home Route
 
 app.get("/", (req, res) => {

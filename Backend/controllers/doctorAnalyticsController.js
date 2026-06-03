@@ -9,91 +9,141 @@ const ratingMap = {
 };
 
 const getDoctorAnalytics = async (req, res) => {
+
   try {
 
-    const feedbacks = await Feedback.find({
-      doctorName: { $ne: null, $ne: "" }
-    });
+    const feedbacks = await Feedback.find();
 
     const doctorData = {};
 
     feedbacks.forEach((item) => {
 
       const doctor =
-        item.doctorName ||
-        item.consultantName ||
-        "Unknown";
+        (
+          item.doctorName ||
+          item.consultantName ||
+          "Unknown"
+        )
+        .trim()
+        .toUpperCase();
 
       if (!doctorData[doctor]) {
 
         doctorData[doctor] = {
+
           doctorName: doctor,
+
           totalFeedback: 0,
+
           totalScore: 0,
+
           ratingCount: 0,
-          comments: [],
+
           excellent: 0,
+
           good: 0,
+
           fair: 0,
+
           needsImprovement: 0,
+
           poor: 0,
+
+          comments: [],
         };
+
       }
 
       doctorData[doctor].totalFeedback++;
 
-      const ratings = item.ratings || {};
+      // OPD Ratings
 
-      Object.values(ratings).forEach((value) => {
+      if (item.ratings) {
 
-        if (
-          typeof value === "string" &&
-          ratingMap[value]
-        ) {
+        Object.values(item.ratings)
+          .forEach((value) => {
 
-          doctorData[doctor].totalScore +=
-            ratingMap[value];
+            if (
+              typeof value === "string" &&
+              ratingMap[value]
+            ) {
 
-          doctorData[doctor].ratingCount++;
+              doctorData[doctor].totalScore +=
+                ratingMap[value];
 
-          if (value === "Excellent")
-            doctorData[doctor].excellent++;
+              doctorData[doctor].ratingCount++;
 
-          if (value === "Good")
-            doctorData[doctor].good++;
+              if (value === "Excellent")
+                doctorData[doctor].excellent++;
 
-          if (value === "Fair")
-            doctorData[doctor].fair++;
+              if (value === "Good")
+                doctorData[doctor].good++;
 
-          if (value === "Needs Improvement")
-            doctorData[doctor].needsImprovement++;
+              if (value === "Fair")
+                doctorData[doctor].fair++;
 
-          if (value === "Poor")
-            doctorData[doctor].poor++;
-        }
-      });
+              if (
+                value ===
+                "Needs Improvement"
+              )
+                doctorData[doctor]
+                  .needsImprovement++;
+
+              if (value === "Poor")
+                doctorData[doctor].poor++;
+
+            }
+
+          });
+
+      }
+
+      // IPD Doctor Rating
+
+      if (item.doctorExperience) {
+
+        doctorData[doctor].totalScore +=
+          Number(item.doctorExperience);
+
+        doctorData[doctor].ratingCount++;
+
+      }
+
+      // Comments
 
       if (item.comment) {
+
         doctorData[doctor].comments.push(
           item.comment
         );
+
+      }
+
+      if (item.suggestion) {
+
+        doctorData[doctor].comments.push(
+          item.suggestion
+        );
+
       }
 
     });
 
-    const result = Object.values(
-      doctorData
-    ).map((doctor) => ({
-      ...doctor,
+    const result =
+      Object.values(doctorData)
+        .map((doctor) => ({
 
-      averageRating:
-        doctor.ratingCount > 0
-          ? (
-              doctor.totalScore /
-              doctor.ratingCount
-            ).toFixed(1)
-          : 0,
-    }));
+          ...doctor,
+
+          averageRating:
+            doctor.ratingCount > 0
+              ? (
+                  doctor.totalScore /
+                  doctor.ratingCount
+                ).toFixed(1)
+              : 0,
+
+        }));
 
     result.sort(
       (a, b) =>
@@ -111,6 +161,7 @@ const getDoctorAnalytics = async (req, res) => {
     });
 
   }
+
 };
 
 module.exports = {
