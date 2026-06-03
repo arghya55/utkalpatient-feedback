@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import API from "../service/api";
-import "../styles/DoctorAnalytics.css";
+import "../styles/Doctoranalytics.css";
 
 const DoctorAnalytics = () => {
 
