@@ -1,0 +1,178 @@
+/* PAGE */
+
+.analytics-page{
+  min-height:100vh;
+  padding:40px 20px;
+  background:
+  linear-gradient(
+    135deg,
+    #f0fdf4,
+    #ecfeff
+  );
+}
+
+.analytics-title{
+  text-align:center;
+  font-size:42px;
+  font-weight:800;
+  color:#14532d;
+  margin-bottom:40px;
+}
+
+/* GRID */
+
+.analytics-grid{
+  display:grid;
+  grid-template-columns:
+  repeat(auto-fit,minmax(350px,1fr));
+  gap:25px;
+}
+
+/* CARD */
+
+.analytics-card{
+  background:white;
+  border-radius:25px;
+  padding:25px;
+  box-shadow:
+  0 10px 30px rgba(0,0,0,0.08);
+
+  transition:0.3s;
+}
+
+.analytics-card:hover{
+  transform:translateY(-5px);
+
+  box-shadow:
+  0 20px 40px rgba(0,0,0,0.12);
+}
+
+/* DOCTOR */
+
+.doctor-name{
+  font-size:28px;
+  font-weight:800;
+  color:#15803d;
+  margin-bottom:15px;
+}
+
+/* STATS */
+
+.stats-grid{
+  display:grid;
+  grid-template-columns:
+  repeat(2,1fr);
+
+  gap:12px;
+
+  margin-top:20px;
+}
+
+.stat-box{
+  padding:15px;
+  border-radius:15px;
+  text-align:center;
+  font-weight:700;
+}
+
+.stat-box h3{
+  font-size:14px;
+  margin-bottom:8px;
+}
+
+.stat-box p{
+  font-size:24px;
+}
+
+/* COLORS */
+
+.total{
+  background:#dbeafe;
+  color:#1d4ed8;
+}
+
+.rating{
+  background:#fef9c3;
+  color:#ca8a04;
+}
+
+.excellent{
+  background:#dcfce7;
+  color:#15803d;
+}
+
+.good{
+  background:#ccfbf1;
+  color:#0f766e;
+}
+
+.fair{
+  background:#fde68a;
+  color:#b45309;
+}
+
+.improve{
+  background:#fed7aa;
+  color:#c2410c;
+}
+
+.poor{
+  background:#fee2e2;
+  color:#dc2626;
+}
+
+/* COMMENTS */
+
+.comments-box{
+  margin-top:25px;
+}
+
+.comments-title{
+  font-size:20px;
+  font-weight:700;
+  color:#111827;
+  margin-bottom:10px;
+}
+
+.comment-list{
+  list-style:none;
+  padding:0;
+}
+
+.comment-list li{
+  background:#f9fafb;
+  border-left:4px solid #16a34a;
+  padding:12px;
+  margin-bottom:10px;
+  border-radius:10px;
+  color:#374151;
+}
+
+/* EMPTY */
+
+.no-comment{
+  color:#6b7280;
+  font-style:italic;
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+  .analytics-title{
+    font-size:30px;
+  }
+
+  .doctor-name{
+    font-size:22px;
+  }
+
+  .stats-grid{
+    grid-template-columns:1fr;
+  }
+
+  .analytics-card{
+    padding:18px;
+  }
+
+}

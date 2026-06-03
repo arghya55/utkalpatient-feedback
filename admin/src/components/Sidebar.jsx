@@ -23,6 +23,10 @@ const Sidebar = () => {
         ⭐ General Feedback
       </Link>
 
+      <Link to="/doctor-analytics">
+        🩺 Doctor Analytics
+      </Link>
+
       <Link to="/analytics">
         📈 Analytics
       </Link>

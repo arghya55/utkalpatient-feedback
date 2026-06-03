@@ -13,6 +13,8 @@ require("./routes/adminRoutes");
 
 const analyticsRoutes =
 require("./routes/analyticsRoutes");
+const doctorAnalyticsRoutes =
+require("./routes/doctorAnalyticsRoutes");
 
 const app = express();
 
@@ -50,7 +52,7 @@ app.use(
   analyticsRoutes
 );
 
-
+  
 // Home Route
 
 app.get("/", (req, res) => {

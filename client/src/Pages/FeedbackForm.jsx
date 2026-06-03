@@ -237,38 +237,62 @@ const FeedbackForm = () => {
 
   };
 
-  const submitHandler = async (e) => {
+const submitHandler = async (e) => {
 
-    e.preventDefault();
+  e.preventDefault();
 
-    if (!validateForm()) {
-      return;
-    }
+  console.log("Submit Clicked");
 
-    try {
+  console.log("Form Data:", formData);
 
-      await API.post(
-        "/feedback",
-        {
-          ...formData,
-          ratings,
-          type: "OPD",
-        }
-      );
+  console.log("Ratings:", ratings);
 
-      navigate("/thank-you");
+  if (!validateForm()) {
 
+    console.log("Validation Failed");
 
-    } catch (error) {
+    return;
 
-      console.log(error);
+  }
 
-      alert("Submission Failed");
+  console.log("Validation Passed");
 
-    }
+  try {
 
-  };
+    console.log("Sending Request");
 
+    const res = await API.post(
+      "/feedback",
+      {
+        ...formData,
+        ratings,
+        type: "OPD",
+      }
+    );
+
+    console.log("Success", res.data);
+
+    navigate("/thank-you");
+
+  } catch (error) {
+
+    console.log("ERROR:", error);
+
+    console.log(
+      "Response:",
+      error.response
+    );
+
+    console.log(
+      "Data:",
+      error.response?.data
+    );
+
+    alert("Submission Failed");
+
+  }
+
+};
   const services = [
     {
       label: "Appointment Experience",

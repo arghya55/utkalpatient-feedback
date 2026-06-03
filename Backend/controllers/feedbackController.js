@@ -3,19 +3,41 @@ const Feedback = require("../models/Feedback");
 
 // CREATE FEEDBACK
 
-const createFeedback = async (req, res) => {
+const createFeedback = async (
+  req,
+  res
+) => {
 
   try {
 
-    const feedback =
-      await Feedback.create(req.body);
+    console.log(
+      "Incoming Data:",
+      req.body
+    );
 
-    res.status(201).json(feedback);
+    const feedback =
+      await Feedback.create(
+        req.body
+      );
+
+    console.log(
+      "Saved Successfully"
+    );
+
+    res.status(201).json(
+      feedback
+    );
 
   } catch (error) {
 
+    console.log(
+      "Mongo Error:",
+      error
+    );
+
     res.status(500).json({
-      message: error.message,
+      message:
+        error.message,
     });
 
   }
