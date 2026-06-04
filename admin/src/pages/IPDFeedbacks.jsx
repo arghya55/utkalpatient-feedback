@@ -158,13 +158,13 @@ const IPDFeedback = () => {
       <h1>IPD Feedback Management</h1>
 
 <div className="filter-box">
-        <p> Admission Date:</p>
+        <p className="datecolor"> Admission Date:</p>
         <input
           type="date"
           value={fromDate}
           onChange={(e) => setFromDate(e.target.value)}
         />
-          <p> Discharge Date:</p>
+          <p className="datecolor"> Discharge Date:</p>
         <input
           type="date"
           value={toDate}

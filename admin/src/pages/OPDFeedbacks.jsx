@@ -110,16 +110,16 @@ const OPDFeedback = () => {
       Doctor: item.doctorName,
       Email: item.email,
 
-      Appointment: item.ratings?.appointment,
-      Registration: item.ratings?.registration,
-      DoctorRating: item.ratings?.doctor,
-      Laboratory: item.ratings?.laboratory,
-      Radiology: item.ratings?.radiology,
-      Pharmacy: item.ratings?.pharmacy,
-      Housekeeping: item.ratings?.housekeeping,
-      Parking: item.ratings?.parking,
-      Recommend: item.ratings?.recommend,
-      ValueMoney: item.ratings?.valueMoney,
+      AppointmentExperience: item.ratings?.appointment,
+      RegistrationExperience: item.ratings?.registration,
+      DoctorExperience: item.ratings?.doctor,
+      LaboratoryExperience: item.ratings?.laboratory,
+      RadiologyExperience: item.ratings?.radiology,
+      PharmacyExperience: item.ratings?.pharmacy,
+      HousekeepingExperience: item.ratings?.housekeeping,
+      ParkingAndSecurityExperience: item.ratings?.parking,
+      HowLikelyAreYouToRecommendUsToAFriendOrFamilyMember: item.ratings?.recommend,
+      DidYouReceiveOverallValueForMoney: item.ratings?.valueMoney,
 
       Comment: item.comment,
 
@@ -160,7 +160,7 @@ const OPDFeedback = () => {
 
 
       <div className="filter-box">
-        <p className="datechange">From Date</p>
+        <p className="datecolor">From Date</p>
         <input
           type="date"
           value={fromDate}
@@ -168,7 +168,7 @@ const OPDFeedback = () => {
             setFromDate(e.target.value)
           }
         />
-        <p className="datechange">To Date</p>
+        <p className="datecolor">To Date</p>
         <input
           type="date"
           value={toDate}
@@ -329,53 +329,53 @@ const OPDFeedback = () => {
             <div className="rating-box">
 
               <p>
-                Appointment :
-                {selected.ratings?.appointment}
+                Appointment Experience :
+                {"  "+selected.ratings?.appointment}
               </p>
 
               <p>
-                Registration :
-                {selected.ratings?.registration}
+                Registration Experience :
+                {"  "+selected.ratings?.registration}
               </p>
 
               <p>
-                Doctor :
-                {selected.ratings?.doctor}
+                Doctor Experience :
+                {"  "+selected.ratings?.doctor}
               </p>
 
               <p>
-                Laboratory :
-                {selected.ratings?.laboratory}
+                Laboratory Experience :
+                {"  "+selected.ratings?.laboratory}
               </p>
 
               <p>
-                Radiology :
-                {selected.ratings?.radiology}
+                Radiology Experience :
+                {"  "+selected.ratings?.radiology}
               </p>
 
               <p>
-                Pharmacy :
-                {selected.ratings?.pharmacy}
+                Pharmacy Experience :
+                {"  "+selected.ratings?.pharmacy}
               </p>
 
               <p>
-                Housekeeping :
-                {selected.ratings?.housekeeping}
+                Housekeeping Experience :
+                {"  "+selected.ratings?.housekeeping}
               </p>
 
               <p>
-                Parking :
-                {selected.ratings?.parking}
+                Parking & Security Experience :
+                {"  "+selected.ratings?.parking}
               </p>
 
               <p>
-                Recommend :
-                {selected.ratings?.recommend}
+                How likely are you to recommend us to a friend or family member? :
+                {"  "+selected.ratings?.recommend}
               </p>
 
               <p>
-                Value Money :
-                {selected.ratings?.valueMoney}
+                Did you receive overall value for money :
+                {"  "+selected.ratings?.valueMoney}
               </p>
 
             </div>

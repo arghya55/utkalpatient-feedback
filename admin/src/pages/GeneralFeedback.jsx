@@ -151,13 +151,13 @@ const filteredData = data.filter((item) => {
 
       <h1>General Feedback Management</h1>
       <div className="filter-box">
-        <p>From Date</p>
+        <p className="datecolor">From Date</p>
         <input
           type="date"
           value={fromDate}
           onChange={(e) => setFromDate(e.target.value)}
         />
-        <p>To Date</p>
+        <p className="datecolor">To Date</p>
         <input
           type="date"
           value={toDate}

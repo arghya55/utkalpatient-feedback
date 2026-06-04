@@ -102,3 +102,9 @@
   border-radius: 5px;
   margin-bottom: 15px;
 }
+
+.datecolor{
+  color: #1900ff;
+  font-size: 18px;
+  font-weight: bold;
+}

@@ -22,7 +22,7 @@ const getDoctorAnalytics = async (req, res) => {
         (
           item.doctorName ||
           item.consultantName ||
-          "Unknown"
+          "UNKNOWN"
         )
         .trim()
         .toUpperCase();
@@ -40,124 +40,153 @@ const getDoctorAnalytics = async (req, res) => {
           ratingCount: 0,
 
           excellent: 0,
-
           good: 0,
-
           fair: 0,
-
           needsImprovement: 0,
-
           poor: 0,
 
           comments: [],
-        };
 
+          dailyData: {},
+          weeklyData: {},
+          monthlyData: {},
+          yearlyData: {}
+        };
       }
 
       doctorData[doctor].totalFeedback++;
 
-      // OPD Ratings
+      const date = new Date(item.createdAt);
+
+      const day =
+        date.toISOString().split("T")[0];
+
+      const week =
+        `${date.getFullYear()}-W${Math.ceil(
+          date.getDate() / 7
+        )}`;
+
+      const month =
+        `${date.getFullYear()}-${date.getMonth()+1}`;
+
+      const year =
+        `${date.getFullYear()}`;
+
+      doctorData[doctor].dailyData[day] =
+        (doctorData[doctor].dailyData[day] || 0) + 1;
+
+      doctorData[doctor].weeklyData[week] =
+        (doctorData[doctor].weeklyData[week] || 0) + 1;
+
+      doctorData[doctor].monthlyData[month] =
+        (doctorData[doctor].monthlyData[month] || 0) + 1;
+
+      doctorData[doctor].yearlyData[year] =
+        (doctorData[doctor].yearlyData[year] || 0) + 1;
 
       if (item.ratings) {
 
         Object.values(item.ratings)
-          .forEach((value) => {
+        .forEach((value)=>{
 
-            if (
-              typeof value === "string" &&
-              ratingMap[value]
-            ) {
+          if(ratingMap[value]){
 
-              doctorData[doctor].totalScore +=
-                ratingMap[value];
+            doctorData[doctor].totalScore +=
+            ratingMap[value];
 
-              doctorData[doctor].ratingCount++;
+            doctorData[doctor].ratingCount++;
 
-              if (value === "Excellent")
-                doctorData[doctor].excellent++;
+            if(value==="Excellent")
+            doctorData[doctor].excellent++;
 
-              if (value === "Good")
-                doctorData[doctor].good++;
+            if(value==="Good")
+            doctorData[doctor].good++;
 
-              if (value === "Fair")
-                doctorData[doctor].fair++;
+            if(value==="Fair")
+            doctorData[doctor].fair++;
 
-              if (
-                value ===
-                "Needs Improvement"
-              )
-                doctorData[doctor]
-                  .needsImprovement++;
+            if(value==="Needs Improvement")
+            doctorData[doctor].needsImprovement++;
 
-              if (value === "Poor")
-                doctorData[doctor].poor++;
+            if(value==="Poor")
+            doctorData[doctor].poor++;
+          }
 
-            }
-
-          });
+        });
 
       }
 
-      // IPD Doctor Rating
-
-      if (item.doctorExperience) {
+      if(item.doctorExperience){
 
         doctorData[doctor].totalScore +=
-          Number(item.doctorExperience);
+        Number(item.doctorExperience);
 
         doctorData[doctor].ratingCount++;
 
       }
 
-      // Comments
+      if(item.comment)
+        doctorData[doctor].comments.push(item.comment);
 
-      if (item.comment) {
-
-        doctorData[doctor].comments.push(
-          item.comment
-        );
-
-      }
-
-      if (item.suggestion) {
-
-        doctorData[doctor].comments.push(
-          item.suggestion
-        );
-
-      }
+      if(item.suggestion)
+        doctorData[doctor].comments.push(item.suggestion);
 
     });
 
-    const result =
-      Object.values(doctorData)
-        .map((doctor) => ({
+    const result = Object.values(
+      doctorData
+    ).map((doctor)=>({
 
-          ...doctor,
+      ...doctor,
 
-          averageRating:
-            doctor.ratingCount > 0
-              ? (
-                  doctor.totalScore /
-                  doctor.ratingCount
-                ).toFixed(1)
-              : 0,
+      averageRating:
+        doctor.ratingCount > 0
+        ? (
+            doctor.totalScore /
+            doctor.ratingCount
+          ).toFixed(1)
+        : 0,
 
-        }));
+      dailyData:
+        Object.entries(
+          doctor.dailyData
+        ).map(([day,feedback])=>({
+          day,
+          feedback
+        })),
 
-    result.sort(
-      (a, b) =>
-        b.averageRating -
-        a.averageRating
-    );
+      weeklyData:
+        Object.entries(
+          doctor.weeklyData
+        ).map(([week,feedback])=>({
+          week,
+          feedback
+        })),
 
-    res.status(200).json(result);
+      monthlyData:
+        Object.entries(
+          doctor.monthlyData
+        ).map(([month,feedback])=>({
+          month,
+          feedback
+        })),
 
-  } catch (error) {
+      yearlyData:
+        Object.entries(
+          doctor.yearlyData
+        ).map(([year,feedback])=>({
+          year,
+          feedback
+        }))
+
+    }));
+
+    res.json(result);
+
+  } catch(error){
 
     res.status(500).json({
-      success: false,
-      message: error.message,
+      message:error.message
     });
 
   }
@@ -165,5 +194,5 @@ const getDoctorAnalytics = async (req, res) => {
 };
 
 module.exports = {
-  getDoctorAnalytics,
+  getDoctorAnalytics
 };

@@ -12,6 +12,7 @@ import IPDFeedback from "./pages/IPDFeedbacks";
 import GeneralFeedback from "./pages/GeneralFeedback";
 import Analytics from "./pages/Analytics";
 import Doctoranalytics from "./pages/Doctoranalytics";
+import DoctorDetails from "./pages/DoctorDetails";
 
 import Layout from "./components/Layout";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -90,6 +91,17 @@ element={
 <ProtectedRoute>
 <Layout>
 <Doctoranalytics />
+</Layout>
+</ProtectedRoute>
+}
+/>
+
+<Route
+path="/doctor/:doctorName"
+element={
+<ProtectedRoute>
+<Layout>
+<DoctorDetails />
 </Layout>
 </ProtectedRoute>
 }
