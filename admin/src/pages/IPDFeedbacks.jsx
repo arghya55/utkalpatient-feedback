@@ -44,13 +44,12 @@ const IPDFeedback = () => {
 
       Contact: item.contactNo,
 
-      RecommendScore:
-        item.recommendStar,
+      ' How likely are you to recommend Utkal Hospitals to your Friends & family for its Medical Treatment and overall Patient Experience': item.recommendStar,
 
-      ReasonScore:
+      'Please mention the reason from the following for your score':
         item.reasonScore?.join(", "),
 
-      HospitalChoice:
+      'Which of the below influenced your decision to choose our hospital':
         item.hospitalChoice?.join(", "),
 
       AdmissionExperience:
@@ -65,16 +64,16 @@ const IPDFeedback = () => {
       Physiotherapy:
         item.physiotherapy,
 
-      Housekeeping:
+      'Housekeeping Service':
         item.housekeepingService,
 
-      Food:
+      ' Food & Beverages':
         item.foodBeverages,
 
-      Billing:
+      'Discharge & Billing Process':
         item.billingProcess,
 
-      Attendant:
+      'Attendant Experience':
         item.attendantExperience,
 
       Emergency:
@@ -86,19 +85,19 @@ const IPDFeedback = () => {
       OT:
         item.ot,
 
-      Ambulance:
+      ' Ambulance Service':
         item.ambulance,
 
-      Security:
+      ' Security Service':
         item.security,
 
-      StaffMention:
+      'Did any of our staff who provided an exceptional service that you feel worth a mention':
         item.staffMention,
 
-      Inconvenience:
+      'Any Inconvenience faced':
         item.inconvenience,
 
-      Suggestion:
+      ' Any suggestion to improve our hospital':
         item.suggestion
 
     }));
