@@ -15,6 +15,8 @@ const analyticsRoutes =
 require("./routes/analyticsRoutes");
 const doctorAnalyticsRoutes =
 require("./routes/doctorAnalyticsRoutes");
+const sentimentRoutes =
+require("./routes/sentiment");
 
 const app = express();
 
@@ -55,6 +57,11 @@ app.use(
 app.use(
   "/api/analytics",
   doctorAnalyticsRoutes
+);
+
+app.use(
+  "/api/sentiment",
+  sentimentRoutes
 );
 
 // Home Route

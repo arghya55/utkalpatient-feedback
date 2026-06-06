@@ -26,9 +26,29 @@ const COLORS = [
 const Analytics = () => {
 
   const [allData, setAllData] = useState([]);
+const [sentiment,setSentiment] =
+useState({
+  positiveCount:0,
+  negativeCount:0,
+  positive:[],
+  negative:[]
+});
+
+const [showList,setShowList] =
+useState([]);
+
+const getSentiment = async()=>{
+
+ const res =
+ await API.get("/sentiment/sentiment");
+
+ setSentiment(res.data);
+
+};
 
   useEffect(() => {
     getAnalytics();
+    getSentiment();
   }, []);
 
   const getAnalytics = async () => {
@@ -102,6 +122,8 @@ const Analytics = () => {
     }
   ];
 
+  
+
   return (
 
     <div className="analytics-container">
@@ -135,6 +157,79 @@ const Analytics = () => {
         </div>
 
       </div>
+
+    <div className="sentiment-wrapper">
+      <div
+ className="sentiment-card positive"
+ onClick={()=>
+ setShowList(
+ sentiment.positive
+ )
+ }
+>
+ <h2>
+   😊 Positive
+ </h2>
+
+ <p>
+   {sentiment.positiveCount}
+ </p>
+</div>
+
+<div
+ className="sentiment-card negative"
+ onClick={()=>
+ setShowList(
+ sentiment.negative
+ )
+ }
+>
+ <h2>
+   😡 Negative
+ </h2>
+
+ <p>
+   {sentiment.negativeCount}
+ </p>
+</div>
+</div>
+
+{
+showList.length > 0 && (
+
+<div className="modal-overlay">
+
+ <div className="modal">
+
+   <h2>
+     Feedback List
+   </h2>
+
+   {
+   showList.map(item=>(
+    <div
+      className="feedback-card"
+      key={item._id}
+    >
+      {item.text}
+    </div>
+   ))
+   }
+
+   <button
+   onClick={()=>
+   setShowList([])
+   }
+   >
+    Close
+   </button>
+
+ </div>
+
+</div>
+
+)
+}
 
       <div className="chart-grid">
 
