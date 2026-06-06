@@ -1,5 +1,3 @@
-// controllers/sentimentController.js
-
 const Feedback = require("../models/Feedback");
 
 const positiveWords = [
@@ -11,7 +9,9 @@ const positiveWords = [
   "satisfied",
   "best",
   "awesome",
-  "clean"
+  "clean",
+  "helpful",
+  "friendly"
 ];
 
 const negativeWords = [
@@ -23,23 +23,28 @@ const negativeWords = [
   "worst",
   "problem",
   "issue",
-  "unhappy"
+  "unhappy",
+  "rude",
+  "slow"
 ];
 
-const getSentimentAnalytics = async (req,res)=>{
+const getSentimentAnalytics = async (
+  req,
+  res
+) => {
 
- try{
+  try {
 
-   const feedbacks =
-   await Feedback.find();
+    const feedbacks =
+      await Feedback.find();
 
-   let positive = [];
-   let negative = [];
+    let positive = [];
+    let negative = [];
+    let neutral = [];
 
-   feedbacks.forEach(item=>{
+    feedbacks.forEach(item => {
 
-      const text =
-      (
+      const text = (
         item.feedback ||
         item.comment ||
         item.suggestion ||
@@ -49,59 +54,67 @@ const getSentimentAnalytics = async (req,res)=>{
       let posScore = 0;
       let negScore = 0;
 
-      positiveWords.forEach(word=>{
-        if(text.includes(word))
+      positiveWords.forEach(word => {
+        if (text.includes(word))
           posScore++;
       });
 
-      negativeWords.forEach(word=>{
-        if(text.includes(word))
+      negativeWords.forEach(word => {
+        if (text.includes(word))
           negScore++;
       });
 
-      if(posScore >= negScore){
+      const feedbackObj = {
+        _id: item._id,
+        text,
+        createdAt: item.createdAt
+      };
 
-        positive.push({
-          _id:item._id,
-          text
-        });
+      if (posScore > negScore) {
 
-      }else{
+        positive.push(feedbackObj);
 
-        negative.push({
-          _id:item._id,
-          text
-        });
+      } else if (negScore > posScore) {
+
+        negative.push(feedbackObj);
+
+      } else {
+
+        neutral.push(feedbackObj);
 
       }
 
-   });
+    });
 
-   res.json({
+    res.json({
 
-     positiveCount:
-     positive.length,
+      positiveCount:
+        positive.length,
 
-     negativeCount:
-     negative.length,
+      negativeCount:
+        negative.length,
 
-     positive,
+      neutralCount:
+        neutral.length,
 
-     negative
+      positive,
 
-   });
+      negative,
 
- }
- catch(error){
+      neutral
 
-   res.status(500).json({
-     message:error.message
-   });
+    });
 
- }
+  } catch(error){
+
+    res.status(500).json({
+      message:error.message
+    });
+
+  }
 
 };
 
 module.exports = {
- getSentimentAnalytics
+  getSentimentAnalytics
 };

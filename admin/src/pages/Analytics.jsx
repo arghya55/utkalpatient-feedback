@@ -30,8 +30,11 @@ const [sentiment,setSentiment] =
 useState({
   positiveCount:0,
   negativeCount:0,
+  neutralCount:0,
+
   positive:[],
-  negative:[]
+  negative:[],
+  neutral:[]
 });
 
 const [showList,setShowList] =
@@ -39,8 +42,8 @@ useState([]);
 
 const getSentiment = async()=>{
 
- const res =
- await API.get("/sentiment/sentiment");
+const res =
+await API.get("/sentiment");
 
  setSentiment(res.data);
 
@@ -50,6 +53,8 @@ const getSentiment = async()=>{
     getAnalytics();
     getSentiment();
   }, []);
+
+ 
 
   const getAnalytics = async () => {
 
@@ -85,6 +90,22 @@ const getSentiment = async()=>{
 
   const total =
     allData.length;
+
+    const positivePercent =
+  total > 0
+    ? (
+        (sentiment.positiveCount / total) *
+        100
+      ).toFixed(1)
+    : 0;
+
+const negativePercent =
+  total > 0
+    ? (
+        (sentiment.negativeCount / total) *
+        100
+      ).toFixed(1)
+    : 0;
 
   const male =
     allData.filter(
@@ -136,95 +157,125 @@ const getSentiment = async()=>{
 
       <div className="analytics-cards">
 
-        <div className="card">
-          <h2>{total}</h2>
-          <p>Total Feedback</p>
-        </div>
+  <div className="card">
+    <h2>{total}</h2>
+    <p>Total Feedback</p>
+  </div>
 
-        <div className="card">
-          <h2>{opd}</h2>
-          <p>OPD Feedback</p>
-        </div>
+  <div className="card">
+    <h2>{opd}</h2>
+    <p>OPD Feedback</p>
+  </div>
 
-        <div className="card">
-          <h2>{ipd}</h2>
-          <p>IPD Feedback</p>
-        </div>
+  <div className="card">
+    <h2>{ipd}</h2>
+    <p>IPD Feedback</p>
+  </div>
 
-        <div className="card">
-          <h2>{general}</h2>
-          <p>General Feedback</p>
-        </div>
+  <div className="card">
+    <h2>{general}</h2>
+    <p>General Feedback</p>
+  </div>
 
-      </div>
+  <div className="card positive-rate">
+    <h2>{positivePercent}%</h2>
+    <p>Positive Rate</p>
+  </div>
+
+  <div className="card negative-rate">
+    <h2>{negativePercent}%</h2>
+    <p>Negative Rate</p>
+  </div>
+
+</div>
 
     <div className="sentiment-wrapper">
-      <div
- className="sentiment-card positive"
- onClick={()=>
- setShowList(
- sentiment.positive
- )
- }
->
- <h2>
-   😊 Positive
- </h2>
 
- <p>
-   {sentiment.positiveCount}
- </p>
+  <div
+    className="sentiment-card positive"
+    onClick={() =>
+      setShowList(
+        sentiment.positive
+      )
+    }
+  >
+    <h2>😊 Positive</h2>
+
+    <p>
+      {sentiment.positiveCount}
+    </p>
+
+  </div>
+
+  <div
+    className="sentiment-card negative"
+    onClick={() =>
+      setShowList(
+        sentiment.negative
+      )
+    }
+  >
+    <h2>😡 Negative</h2>
+
+    <p>
+      {sentiment.negativeCount}
+    </p>
+
+  </div>
+
+  <div
+  className="sentiment-card neutral"
+  onClick={()=>
+    setShowList(sentiment.neutral)
+  }
+>
+  <h2>😐 Neutral</h2>
+
+  <p>
+    {sentiment.neutralCount}
+  </p>
 </div>
 
-<div
- className="sentiment-card negative"
- onClick={()=>
- setShowList(
- sentiment.negative
- )
- }
->
- <h2>
-   😡 Negative
- </h2>
 
- <p>
-   {sentiment.negativeCount}
- </p>
-</div>
 </div>
 
 {
+Array.isArray(showList) &&
 showList.length > 0 && (
 
 <div className="modal-overlay">
 
- <div className="modal">
+<div className="modal">
 
-   <h2>
-     Feedback List
-   </h2>
+<h2>
+Feedback List
+</h2>
 
-   {
-   showList.map(item=>(
-    <div
-      className="feedback-card"
-      key={item._id}
-    >
-      {item.text}
-    </div>
-   ))
-   }
+{
+showList.map(item=>(
 
-   <button
-   onClick={()=>
-   setShowList([])
-   }
-   >
-    Close
-   </button>
+<div
+key={item._id}
+className="feedback-card"
+>
 
- </div>
+{item.text}
+
+</div>
+
+))
+}
+
+<button
+className="close-btn"
+onClick={()=>
+setShowList([])
+}
+>
+Close
+</button>
+
+</div>
 
 </div>
 

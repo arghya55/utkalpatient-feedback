@@ -58,19 +58,30 @@
 }
 
 .sentiment-card{
-  flex:1;
-  min-width:250px;
-  padding:25px;
-  border-radius:20px;
-  cursor:pointer;
-  transition:0.3s;
-  color:white;
-  box-shadow:
-  0 10px 25px rgba(0,0,0,0.12);
+flex:1;
+min-width:220px;
+padding:25px;
+border-radius:15px;
+cursor:pointer;
+text-align:center;
+color:white;
+transition:.3s;
 }
 
 .sentiment-card:hover{
   transform:translateY(-5px);
+}
+
+.positive{
+background:#22c55e;
+}
+
+.negative{
+background:#ef4444;
+}
+
+.neutral{
+  background:#f59e0b;
 }
 
 .sentiment-card h2{
@@ -117,20 +128,12 @@
 }
 
 .modal{
-  width:90%;
-  max-width:900px;
-  max-height:80vh;
-
-  overflow-y:auto;
-
-  background:white;
-
-  border-radius:25px;
-
-  padding:30px;
-
-  box-shadow:
-  0 15px 40px rgba(0,0,0,0.2);
+background:white;
+width:700px;
+max-height:80vh;
+overflow:auto;
+padding:25px;
+border-radius:15px;
 }
 
 .modal h2{
@@ -140,52 +143,25 @@
 }
 
 .feedback-card{
-  background:#f9fafb;
-
-  border-left:6px solid #16a34a;
-
-  padding:15px;
-
-  border-radius:12px;
-
-  margin-bottom:15px;
-
-  font-size:15px;
-
-  line-height:1.7;
-
-  color:#374151;
-
-  box-shadow:
-  0 2px 10px rgba(0,0,0,0.05);
+padding:15px;
+margin-bottom:10px;
+background:#f8fafc;
+border-radius:10px;
+border-left:5px solid #2563eb;
 }
 
 .feedback-card:hover{
   background:#ecfdf5;
 }
 
+
 .close-btn{
-  width:100%;
-
-  margin-top:20px;
-
-  padding:14px;
-
-  border:none;
-
-  border-radius:12px;
-
-  background:#dc2626;
-
-  color:white;
-
-  font-size:16px;
-
-  font-weight:700;
-
-  cursor:pointer;
-
-  transition:0.3s;
+padding:10px 20px;
+border:none;
+background:red;
+color:white;
+border-radius:8px;
+cursor:pointer;
 }
 
 .close-btn:hover{
