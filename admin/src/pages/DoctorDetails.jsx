@@ -3,14 +3,14 @@ import { useEffect, useState } from "react";
 import '../styles/DoctorDetails.css';
 import API from "../service/api";
 import {
+  ResponsiveContainer,
   LineChart,
   Line,
   XAxis,
   YAxis,
   Tooltip,
-  ResponsiveContainer,
   CartesianGrid,
-  Legend
+  LabelList
 } from "recharts";
 
 const DoctorDetails = () => {
@@ -174,9 +174,17 @@ year
 
   <ResponsiveContainer
   width="100%"
-  height={350}
+  height={450}
 >
-  <LineChart data={graphData}>
+  <LineChart
+    data={graphData}
+    margin={{
+      top: 30,
+      right: 30,
+      left: 20,
+      bottom: 20
+    }}
+  >
 
     <CartesianGrid strokeDasharray="3 3" />
 
@@ -196,17 +204,21 @@ year
 
     <Tooltip />
 
-    <Legend />
-
     <Line
       type="monotone"
       dataKey="feedback"
-      name="Feedback Count"
-      stroke="#2563eb"
-      strokeWidth={3}
-      dot={{ r: 5 }}
-      activeDot={{ r: 8 }}
-    />
+      stroke="#000"
+      strokeWidth={2}
+      dot={{
+        r: 6,
+        fill: "#000"
+      }}
+    >
+      <LabelList
+        dataKey="feedback"
+        position="top"
+      />
+    </Line>
 
   </LineChart>
 </ResponsiveContainer>
