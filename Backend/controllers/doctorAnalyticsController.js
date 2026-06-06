@@ -18,14 +18,21 @@ const getDoctorAnalytics = async (req, res) => {
 
     feedbacks.forEach((item) => {
 
-      const doctor =
-        (
-          item.doctorName ||
-          item.consultantName ||
-          "UNKNOWN"
-        )
-        .trim()
-        .toUpperCase();
+      const doctorName =
+  item.doctorName ||
+  item.consultantName;
+
+if (
+  !doctorName ||
+  doctorName.trim() === ""
+) {
+  return;
+}
+
+const doctor =
+  doctorName
+    .trim()
+    .toUpperCase();
 
       if (!doctorData[doctor]) {
 

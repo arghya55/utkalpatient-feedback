@@ -42,36 +42,38 @@ const DoctorAnalytics = () => {
 
       <div className="doctor-list">
 
-        {data.map((doctor) => (
+        {data
+.filter(
+  doctor =>
+    doctor.doctorName &&
+    doctor.doctorName !== "UNKNOWN"
+)
+.map((doctor) => (
+  <div
+    key={doctor.doctorName}
+    className="doctor-card"
+  >
+    <h2>
+      👨‍⚕️ {doctor.doctorName}
+    </h2>
 
-          <div
-            key={doctor.doctorName}
-            className="doctor-card"
-          >
+    <p>
+      ⭐ {doctor.averageRating}
+    </p>
 
-            <h2>
-              👨‍⚕️ {doctor.doctorName}
-            </h2>
-
-            <p>
-              ⭐ {doctor.averageRating}
-            </p>
-
-            <button
-              onClick={() =>
-                navigate(
-                  `/doctor/${encodeURIComponent(
-                    doctor.doctorName
-                  )}`
-                )
-              }
-            >
-              View Analytics
-            </button>
-
-          </div>
-
-        ))}
+    <button
+      onClick={() =>
+        navigate(
+          `/doctor/${encodeURIComponent(
+            doctor.doctorName
+          )}`
+        )
+      }
+    >
+      View Analytics
+    </button>
+  </div>
+))}
 
       </div>
 

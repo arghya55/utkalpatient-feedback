@@ -107,6 +107,14 @@ const negativePercent =
       ).toFixed(1)
     : 0;
 
+const neutralPercent =
+  total > 0
+    ? (
+        (sentiment.neutralCount / total) *
+        100
+      ).toFixed(1)
+    : 0;
+
   const male =
     allData.filter(
       item => item.gender === "Male"
@@ -185,6 +193,11 @@ const negativePercent =
   <div className="card negative-rate">
     <h2>{negativePercent}%</h2>
     <p>Negative Rate</p>
+  </div>
+
+  <div className="card neutral-rate">
+    <h2>{neutralPercent}%</h2>
+    <p>Neutral Rate</p>
   </div>
 
 </div>
