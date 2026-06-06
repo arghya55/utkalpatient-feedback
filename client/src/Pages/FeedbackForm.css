@@ -381,37 +381,35 @@
     font-size:14px;
   }
 
-  .premium-feedback-table td:nth-child(2)::before{
-    content:"Excellent";
-    font-weight:600;
-  }
+ .premium-feedback-table td:nth-child(2)::after{
+  content:"Excellent";
+  font-weight:600;
+}
 
-  .premium-feedback-table td:nth-child(3)::before{
-    content:"Good";
-    font-weight:600;
-  }
+.premium-feedback-table td:nth-child(3)::after{
+  content:"Good";
+  font-weight:600;
+}
 
-  .premium-feedback-table td:nth-child(4)::before{
-    content:"Fair";
-    font-weight:600;
-  }
+.premium-feedback-table td:nth-child(4)::after{
+  content:"Fair";
+  font-weight:600;
+}
 
-  .premium-feedback-table td:nth-child(5)::before{
-    content:"Needs Improvement";
-    font-weight:600;
-  }
+.premium-feedback-table td:nth-child(5)::after{
+  content:"Needs Improvement";
+  font-weight:600;
+}
 
-  .premium-feedback-table td:nth-child(6)::before{
-    content:"Poor";
-    font-weight:600;
-  }
+.premium-feedback-table td:nth-child(6)::after{
+  content:"Poor";
+  font-weight:600;
+}
 
-  .premium-feedback-table input[type="radio"]{
-    width:20px;
-    height:20px;
-    margin:0;
-    flex-shrink:0;
-  }
+.premium-feedback-table input[type="radio"]{
+  margin-right:8px;
+  margin-left:0;
+}
 
   .premium-comment-title{
     font-size:22px;
