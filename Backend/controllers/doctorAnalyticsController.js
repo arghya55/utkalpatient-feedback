@@ -67,7 +67,9 @@ const getDoctorAnalytics = async (req, res) => {
         )}`;
 
       const month =
-        `${date.getFullYear()}-${date.getMonth()+1}`;
+`${date.getFullYear()}-${String(
+date.getMonth() + 1
+).padStart(2,"0")}`;
 
       const year =
         `${date.getFullYear()}`;
@@ -147,13 +149,12 @@ const getDoctorAnalytics = async (req, res) => {
           ).toFixed(1)
         : 0,
 
-      dailyData:
-        Object.entries(
-          doctor.dailyData
-        ).map(([day,feedback])=>({
-          day,
-          feedback
-        })),
+      dailyData: Object.entries(doctor.dailyData)
+  .sort((a,b)=>new Date(a[0])-new Date(b[0]))
+  .map(([day,feedback])=>({
+    day,
+    feedback
+  })),
 
       weeklyData:
         Object.entries(
