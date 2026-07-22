@@ -1,5 +1,5 @@
 const Feedback = require("../models/Feedback");
-const sendEmail=require("../services/emailService");
+const sendEmail=require("../services/emailservice");
 
 
 // CREATE FEEDBACK
