@@ -1,4 +1,5 @@
 const Feedback = require("../models/Feedback");
+const sendEmail=require("../services/emailService");
 
 
 // CREATE FEEDBACK
@@ -15,18 +16,64 @@ const createFeedback = async (
       req.body
     );
 
+    // const feedback =
+    //   await Feedback.create(
+    //     req.body
+    //   );
+
+    // console.log(
+    //   "Saved Successfully"
+    // );
+
+    // res.status(201).json(
+    //   feedback
+    // );
+
     const feedback =
-      await Feedback.create(
-        req.body
-      );
+await Feedback.create(
+req.body
+);
 
-    console.log(
-      "Saved Successfully"
-    );
 
-    res.status(201).json(
-      feedback
-    );
+console.log(
+"Saved Successfully"
+);
+
+
+// SEND EMAIL
+
+await sendEmail(
+
+req.body.email,
+
+"Thank you for your valuable feedback",
+
+`
+Dear ${req.body.name},
+
+Thank you for sharing your valuable feedback with Utkal Hospital.
+
+Your feedback helps us improve our healthcare services.
+
+Regards,
+
+Utkal Hospital
+`
+
+);
+
+
+
+res.status(201).json({
+
+success:true,
+
+message:
+"Feedback submitted successfully",
+
+data:feedback
+
+});
 
   } catch (error) {
 

@@ -12,6 +12,7 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
+    "@getbrevo/brevo": "^6.0.2",
     "bcryptjs": "^3.0.3",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
@@ -19,6 +20,7 @@
     "file-saver": "^2.0.5",
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^9.6.3",
+    "nodemailer": "^9.0.3",
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
