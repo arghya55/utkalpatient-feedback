@@ -22,10 +22,10 @@ const Sidebar = () => {
       <Link to="/general-feedback">
         ⭐ General Feedback
       </Link>
-
+{/* 
       <Link to="/doctor-analytics">
         🩺 Doctor Analytics
-      </Link>
+      </Link> */}
 
       <Link to="/analytics">
         📈 Analytics
