@@ -17,7 +17,7 @@ const Navbar = () => {
           <div>
 
             <h1 className="navbar-title">
-              Hospital Feedback System
+              Utkal Hospital Feedback System
             </h1>
 
            <p className="navbar-subtitle">
