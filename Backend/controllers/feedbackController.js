@@ -29,50 +29,33 @@ const createFeedback = async (
     //   feedback
     // );
 
-    const feedback =
-await Feedback.create(
-req.body
-);
+   const feedback = await Feedback.create(req.body);
 
+try {
 
-console.log(
-"Saved Successfully"
-);
+    await sendEmail(
+        req.body.email,
+        "Thank You for Your Feedback",
+        `
+        Dear ${req.body.name},
 
+        Thank you for your valuable feedback.
 
-// SEND EMAIL
+        Regards,
+        Utkal Hospital
+        `
+    );
 
-await sendEmail(
+} catch (err) {
 
-req.body.email,
+    console.error("Email Error:", err.message);
 
-"Thank you for your valuable feedback",
-
-`
-Dear ${req.body.name},
-
-Thank you for sharing your valuable feedback with Utkal Hospital.
-
-Your feedback helps us improve our healthcare services.
-
-Regards,
-
-Utkal Hospital
-`
-
-);
-
-
+}
 
 res.status(201).json({
-
-success:true,
-
-message:
-"Feedback submitted successfully",
-
-data:feedback
-
+    success: true,
+    message: "Feedback submitted successfully",
+    data: feedback
 });
 
   } catch (error) {
