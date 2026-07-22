@@ -10,18 +10,32 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-const sendEmail = async (to, subject, message) => {
-  await transporter.sendMail({
-    from: `"${process.env.EMAIL_NAME}" <${process.env.EMAIL_FROM}>`,
-    to,
-    subject,
-    html: `
-      <h2>${subject}</h2>
-      <p>${message}</p>
-    `,
-  });
+// SMTP Verify
+transporter.verify((error, success) => {
+  if (error) {
+    console.error("❌ SMTP Verify Error:", error);
+  } else {
+    console.log("✅ SMTP Server Ready");
+  }
+});
 
-  console.log("Email sent");
+const sendEmail = async (to, subject, message) => {
+  try {
+    await transporter.sendMail({
+      from: `"${process.env.EMAIL_NAME}" <${process.env.EMAIL_FROM}>`,
+      to,
+      subject,
+      html: `
+        <h2>${subject}</h2>
+        <p>${message}</p>
+      `,
+    });
+
+    console.log("✅ Email Sent Successfully");
+  } catch (error) {
+    console.error("❌ Send Mail Error:", error);
+    throw error;
+  }
 };
 
 module.exports = sendEmail;
