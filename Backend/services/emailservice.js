@@ -1,50 +1,27 @@
-const brevoClient = require("../config/brevo");
-const brevo = require("@getbrevo/brevo");
+const nodemailer = require("nodemailer");
 
+const transporter = nodemailer.createTransport({
+  host: "smtp-relay.brevo.com",
+  port: 587,
+  secure: false,
+  auth: {
+    user: process.env.BREVO_SMTP_USER,
+    pass: process.env.BREVO_SMTP_PASS,
+  },
+});
 
-const sendEmail = async(to, subject, message)=>{
+const sendEmail = async (to, subject, message) => {
+  await transporter.sendMail({
+    from: `"${process.env.EMAIL_NAME}" <${process.env.EMAIL_FROM}>`,
+    to,
+    subject,
+    html: `
+      <h2>${subject}</h2>
+      <p>${message}</p>
+    `,
+  });
 
-    try{
-
-        let email = new brevo.SendSmtpEmail();
-
-
-        email.sender = {
-            name: process.env.EMAIL_NAME,
-            email: process.env.EMAIL_FROM
-        };
-
-
-        email.to = [
-            {
-                email: to
-            }
-        ];
-
-
-        email.subject = subject;
-
-
-        email.htmlContent = `
-            <h2>${subject}</h2>
-            <p>${message}</p>
-        `;
-
-
-        await brevoClient.sendTransacEmail(email);
-
-
-        console.log("Email sent");
-
-
-    }
-    catch(error){
-
-        console.log(error);
-
-    }
-
-}
-
+  console.log("Email sent");
+};
 
 module.exports = sendEmail;
