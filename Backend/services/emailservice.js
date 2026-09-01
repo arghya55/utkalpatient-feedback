@@ -1,41 +1,66 @@
 const nodemailer = require("nodemailer");
 
 const transporter = nodemailer.createTransport({
-  host: "smtp-relay.brevo.com",
+  host: "smtp.office365.com",
   port: 587,
-  secure: false,
+  secure: false, // STARTTLS
   auth: {
-    user: process.env.BREVO_SMTP_USER,
-    pass: process.env.BREVO_SMTP_PASS,
+    user: process.env.OUTLOOK_EMAIL,
+    pass: process.env.OUTLOOK_PASSWORD,
+  },
+
+  tls: {
+    ciphers: "SSLv3",
   },
 });
 
-// SMTP Verify
+// Check Outlook SMTP connection
 transporter.verify((error, success) => {
   if (error) {
-    console.error("❌ SMTP Verify Error:", error);
+    console.error("❌ Outlook SMTP Verify Error:", error.message);
   } else {
-    console.log("✅ SMTP Server Ready");
+    console.log("✅ Outlook SMTP Server Ready");
   }
 });
 
-const sendEmail = async (to, subject, message) => {
+
+const sendEmail = async ({
+  to,
+  subject,
+  html,
+}) => {
+
   try {
-    await transporter.sendMail({
-      from: `"${process.env.EMAIL_NAME}" <${process.env.EMAIL_FROM}>`,
+
+    const info = await transporter.sendMail({
+
+      from: `"${process.env.EMAIL_NAME}" <${process.env.OUTLOOK_EMAIL}>`,
+
       to,
+
       subject,
-      html: `
-        <h2>${subject}</h2>
-        <p>${message}</p>
-      `,
+
+      html,
+
     });
 
-    console.log("✅ Email Sent Successfully");
+    console.log(
+      "✅ Email Sent Successfully:",
+      info.messageId
+    );
+
+    return info;
+
   } catch (error) {
-    console.error("❌ Send Mail Error:", error);
+
+    console.error(
+      "❌ Outlook Send Mail Error:",
+      error.message
+    );
+
     throw error;
   }
 };
+
 
 module.exports = sendEmail;
