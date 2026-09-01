@@ -1,14 +1,12 @@
 import { useState, useEffect } from "react";
 import "./FeedbackForm.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import API from "../services/api";
-import { useNavigate } from "react-router-dom";
-
 
 const FeedbackForm = () => {
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-
     date: "",
     uhid: "",
     name: "",
@@ -33,6 +31,13 @@ const FeedbackForm = () => {
     valueMoney: "",
   });
 
+  const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // =========================================================
+  // SET TODAY'S DATE
+  // =========================================================
+
   useEffect(() => {
     const today = new Date().toLocaleDateString("en-GB");
 
@@ -42,98 +47,101 @@ const FeedbackForm = () => {
     }));
   }, []);
 
-  const navigate = useNavigate()
-
-  const [errors, setErrors] = useState({});
+  // =========================================================
+  // HANDLE INPUT
+  // =========================================================
 
   const handleInput = (e) => {
-
     const { name, value } = e.target;
 
-    // MOBILE NUMBER ONLY DIGIT
-
+    // MOBILE NUMBER
     if (name === "contact") {
-
       const onlyNumber = value.replace(/\D/g, "");
 
       if (onlyNumber.length <= 10) {
-
-        setFormData({
-          ...formData,
-          [name]: onlyNumber,
-        });
-
+        setFormData((prev) => ({
+          ...prev,
+          contact: onlyNumber,
+        }));
       }
 
       return;
     }
-    //age ONLY DIGIT
 
+    // AGE
     if (name === "age") {
-
       const onlyNumber = value.replace(/\D/g, "");
 
-      if (parseInt(onlyNumber) <= 120) {
-
-        setFormData({
-          ...formData,
-          [name]: onlyNumber,
-        });
-
+      if (
+        onlyNumber === "" ||
+        parseInt(onlyNumber, 10) <= 120
+      ) {
+        setFormData((prev) => ({
+          ...prev,
+          age: onlyNumber,
+        }));
       }
 
       return;
     }
 
-    // NAME ONLY CHARACTER
-
+    // PATIENT NAME
     if (name === "name") {
-
       const onlyText = value.replace(
         /[^A-Za-z\s]/g,
         ""
       );
 
-      setFormData({
-        ...formData,
-        [name]: onlyText,
-      });
+      setFormData((prev) => ({
+        ...prev,
+        name: onlyText,
+      }));
 
       return;
     }
 
-    // DOCTOR NAME ONLY CHARACTER
-
+    // DOCTOR NAME
     if (name === "doctorName") {
-
       const onlyDoctorText = value.replace(
         /[^A-Za-z\s.]/g,
         ""
       );
 
-      setFormData({
-        ...formData,
-        [name]: onlyDoctorText,
-      });
+      setFormData((prev) => ({
+        ...prev,
+        doctorName: onlyDoctorText,
+      }));
 
       return;
     }
 
-    setFormData({
-      ...formData,
+    // OTHER FIELDS
+    setFormData((prev) => ({
+      ...prev,
       [name]: value,
-    });
-
+    }));
   };
+
+  // =========================================================
+  // HANDLE RATING
+  // =========================================================
 
   const handleRating = (field, value) => {
-
-    setRatings({
-      ...ratings,
+    setRatings((prev) => ({
+      ...prev,
       [field]: value,
-    });
+    }));
 
+    // Remove error after selecting rating
+    setErrors((prev) => ({
+      ...prev,
+      [field]: false,
+    }));
   };
+
+  // =========================================================
+  // RATING OPTIONS
+  // =========================================================
 
   const ratingOptions = [
     "Excellent",
@@ -143,156 +151,148 @@ const FeedbackForm = () => {
     "Poor",
   ];
 
-  const validateForm = () => {
+  // =========================================================
+  // VALIDATION
+  // =========================================================
 
-    let newErrors = {};
+  const validateForm = () => {
+    const newErrors = {};
 
     // DATE
-
     if (!formData.date) {
       newErrors.date = true;
     }
 
     // UHID
-
     if (!formData.uhid.trim()) {
       newErrors.uhid = true;
     }
 
     // NAME
-
     if (!formData.name.trim()) {
       newErrors.name = true;
     }
 
     // MOBILE
-
     if (!formData.contact.trim()) {
-
       newErrors.contact = true;
-
-    } else if (
-      formData.contact.length !== 10
-    ) {
-
+    } else if (formData.contact.length !== 10) {
       newErrors.contact = true;
-
     }
 
     // AGE
-
     if (!formData.age.trim()) {
+      newErrors.age = true;
+    } else if (
+      parseInt(formData.age, 10) < 1 ||
+      parseInt(formData.age, 10) > 120
+    ) {
       newErrors.age = true;
     }
 
     // GENDER
-
     if (!formData.gender.trim()) {
       newErrors.gender = true;
     }
 
     // DOCTOR NAME
-
     if (!formData.doctorName.trim()) {
       newErrors.doctorName = true;
     }
 
     // EMAIL
-
     if (!formData.email.trim()) {
-
       newErrors.email = true;
-
     } else if (
       !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(
         formData.email
       )
     ) {
-
       newErrors.email = true;
-
     }
 
     // COMMENT
-
     if (!formData.comment.trim()) {
       newErrors.comment = true;
     }
 
-    // RADIO BUTTON VALIDATION
-
+    // RATINGS
     Object.keys(ratings).forEach((key) => {
-
       if (!ratings[key]) {
-
         newErrors[key] = true;
-
       }
-
     });
 
     setErrors(newErrors);
 
     return Object.keys(newErrors).length === 0;
-
   };
 
-const submitHandler = async (e) => {
+  // =========================================================
+  // SUBMIT
+  // =========================================================
 
-  e.preventDefault();
+  const submitHandler = async (e) => {
+    e.preventDefault();
 
-  console.log("Submit Clicked");
+    // Prevent multiple clicks
+    if (isSubmitting) {
+      return;
+    }
 
-  console.log("Form Data:", formData);
+    // VALIDATE
+    if (!validateForm()) {
+      alert("Please fill all required fields");
+      return;
+    }
 
-  console.log("Ratings:", ratings);
+    setIsSubmitting(true);
 
-  if (!validateForm()) {
+    // Create payload
+    const payload = {
+      ...formData,
+      ratings,
+      type: "OPD",
+    };
 
-    console.log("Validation Failed");
+    console.log("Submitting OPD Feedback:", payload);
 
-    return;
+    // =======================================================
+    // NAVIGATE IMMEDIATELY
+    // =======================================================
 
-  }
+    navigate("/thank-you", {
+      replace: true,
+    });
 
-  console.log("Validation Passed");
+    // =======================================================
+    // SAVE DATA IN BACKGROUND
+    // =======================================================
 
-  try {
+    try {
+      const response = await API.post(
+        "/feedback",
+        payload
+      );
 
-    console.log("Sending Request");
+      console.log(
+        "OPD feedback saved successfully:",
+        response.data
+      );
+    } catch (error) {
+      console.error(
+        "Background feedback submission failed:",
+        error
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
-    const res = await API.post(
-      "/feedback",
-      {
-        ...formData,
-        ratings,
-        type: "OPD",
-      }
-    );
+  // =========================================================
+  // SERVICES
+  // =========================================================
 
-    console.log("Success", res.data);
-
-    navigate("/thank-you");
-
-  } catch (error) {
-
-    console.log("ERROR:", error);
-
-    console.log(
-      "Response:",
-      error.response
-    );
-
-    console.log(
-      "Data:",
-      error.response?.data
-    );
-
-    alert("Submission Failed");
-
-  }
-
-};
   const services = [
     {
       label: "Appointment Experience",
@@ -338,15 +338,21 @@ const submitHandler = async (e) => {
     },
   ];
 
-  
+  // =========================================================
+  // JSX
+  // =========================================================
 
   return (
-
     <div className="premium-feedback-page">
-
       <div className="premium-feedback-card">
+
+        {/* BACK BUTTON */}
+
         <Link to="/">
-          <button className="back-btn">
+          <button
+            type="button"
+            className="back-btn"
+          >
             Back To Home
           </button>
         </Link>
@@ -371,27 +377,24 @@ const submitHandler = async (e) => {
             {/* DATE */}
 
             <div className="premium-input-group">
-
               <label>Date *</label>
 
               <input
                 type="text"
                 name="date"
                 value={formData.date}
-                onChange={handleInput}
+                readOnly
                 className={
                   errors.date
                     ? "premium-error-input"
                     : ""
                 }
               />
-
             </div>
 
             {/* UHID */}
 
             <div className="premium-input-group">
-
               <label>UHID *</label>
 
               <input
@@ -406,13 +409,11 @@ const submitHandler = async (e) => {
                     : ""
                 }
               />
-
             </div>
 
             {/* NAME */}
 
             <div className="premium-input-group">
-
               <label>Patient Name *</label>
 
               <input
@@ -427,19 +428,18 @@ const submitHandler = async (e) => {
                     : ""
                 }
               />
-
             </div>
 
             {/* CONTACT */}
 
             <div className="premium-input-group">
-
               <label>Mobile Number *</label>
 
               <input
                 type="text"
                 name="contact"
                 maxLength="10"
+                inputMode="numeric"
                 placeholder="Enter mobile number"
                 value={formData.contact}
                 onChange={handleInput}
@@ -449,12 +449,11 @@ const submitHandler = async (e) => {
                     : ""
                 }
               />
-
             </div>
+
             {/* AGE */}
 
             <div className="premium-input-group">
-
               <label>Age *</label>
 
               <input
@@ -469,14 +468,11 @@ const submitHandler = async (e) => {
                     : ""
                 }
               />
-
             </div>
-            {/* GENDER */}
 
             {/* GENDER */}
 
             <div className="premium-input-group">
-
               <label>Gender *</label>
 
               <select
@@ -500,15 +496,12 @@ const submitHandler = async (e) => {
                 <option value="Female">
                   Female
                 </option>
-
               </select>
-
             </div>
 
             {/* DOCTOR */}
 
             <div className="premium-input-group">
-
               <label>Consulting Doctor *</label>
 
               <input
@@ -523,13 +516,11 @@ const submitHandler = async (e) => {
                     : ""
                 }
               />
-
             </div>
 
             {/* EMAIL */}
 
             <div className="premium-input-group">
-
               <label>Email Address *</label>
 
               <input
@@ -544,7 +535,6 @@ const submitHandler = async (e) => {
                     : ""
                 }
               />
-
             </div>
 
           </div>
@@ -552,39 +542,28 @@ const submitHandler = async (e) => {
           {/* DESCRIPTION */}
 
           <div className="premium-description">
-
             At Utkal Hospital, we continuously
             work towards improving healthcare
             quality and patient satisfaction.
             Your valuable feedback and suggestions
             help us serve you better.
-
           </div>
 
-          {/* TABLE */}
+          {/* RATING TABLE */}
 
           <div className="premium-table-wrapper">
 
             <table className="premium-feedback-table">
 
               <thead>
-
                 <tr>
-
                   <th>Services</th>
-
                   <th>Excellent</th>
-
                   <th>Good</th>
-
                   <th>Fair</th>
-
                   <th>Needs Improvement</th>
-
                   <th>Poor</th>
-
                 </tr>
-
               </thead>
 
               <tbody>
@@ -617,9 +596,7 @@ const submitHandler = async (e) => {
                           type="radio"
                           name={service.field}
                           checked={
-                            ratings[
-                            service.field
-                            ] === item
+                            ratings[service.field] === item
                           }
                           onChange={() =>
                             handleRating(
@@ -656,33 +633,36 @@ const submitHandler = async (e) => {
               value={formData.comment}
               onChange={handleInput}
               placeholder="Write your valuable comments..."
-              className={`premium-comment-box ${errors.comment
-                  ? "premium-error-input"
-                  : ""
-                }`}
-            ></textarea>
+              className={
+                `premium-comment-box ${
+                  errors.comment
+                    ? "premium-error-input"
+                    : ""
+                }`
+              }
+            />
 
           </div>
 
-          {/* BUTTON */}
+          {/* SUBMIT BUTTON */}
 
           <div className="premium-submit-area">
 
             <button
               type="submit"
               className="premium-submit-btn"
+              disabled={isSubmitting}
             >
-              Submit Feedback
+              {isSubmitting
+                ? "Submitting..."
+                : "Submit Feedback"}
             </button>
 
           </div>
 
         </form>
-
       </div>
-
     </div>
-
   );
 };
 

@@ -1,77 +1,44 @@
 const Feedback = require("../models/Feedback");
-const sendEmail=require("../services/emailservice");
-
+const sendEmail = require("../services/emailservice");
 
 // CREATE FEEDBACK
 
-const createFeedback = async (
-  req,
-  res
-) => {
-
+const createFeedback = async (req, res) => {
   try {
+    console.log("Incoming Data:", req.body);
 
-    console.log(
-      "Incoming Data:",
-      req.body
-    );
+    const feedback = await Feedback.create(req.body);
 
-    // const feedback =
-    //   await Feedback.create(
-    //     req.body
-    //   );
+    const recipientEmail =
+      req.body.email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(req.body.email)
+        ? req.body.email
+        : null;
 
-    // console.log(
-    //   "Saved Successfully"
-    // );
-
-    // res.status(201).json(
-    //   feedback
-    // );
-
-   const feedback = await Feedback.create(req.body);
-
-try {
-
-    await sendEmail(
-        req.body.email,
-        "Thank You for Your Feedback",
-        `
-        Dear ${req.body.name},
+    if (recipientEmail) {
+      sendEmail(recipientEmail, "Thank You for Your Feedback", `
+        Dear ${req.body.name || "Patient"},
 
         Thank you for your valuable feedback.
 
         Regards,
         Utkal Hospital
-        `
-    );
+      `).catch((err) => {
+        console.error("Email Error:", err.message);
+      });
+    }
 
-} catch (err) {
-
-    console.error("Email Error:", err.message);
-
-}
-
-res.status(201).json({
-    success: true,
-    message: "Feedback submitted successfully",
-    data: feedback
-});
-
+    res.status(201).json({
+      success: true,
+      message: "Feedback submitted successfully",
+      data: feedback,
+    });
   } catch (error) {
-
-    console.log(
-      "Mongo Error:",
-      error
-    );
+    console.log("Mongo Error:", error);
 
     res.status(500).json({
-      message:
-        error.message,
+      message: error.message,
     });
-
   }
-
 };
 
 
