@@ -1,69 +1,66 @@
-const dns = require("dns").promises;
 const nodemailer = require("nodemailer");
 
-const sendEmail = async ({ to, subject, html }) => {
-  let transporter;
+const transporter = nodemailer.createTransport({
+  host: "smtp.office365.com",
+  port: 587,
+  secure: false, // STARTTLS
+  auth: {
+    user: process.env.OUTLOOK_EMAIL,
+    pass: process.env.OUTLOOK_PASSWORD,
+  },
+
+  tls: {
+    ciphers: "SSLv3",
+  },
+});
+
+// Check Outlook SMTP connection
+transporter.verify((error, success) => {
+  if (error) {
+    console.error("❌ Outlook SMTP Verify Error:", error.message);
+  } else {
+    console.log("✅ Outlook SMTP Server Ready");
+  }
+});
+
+
+const sendEmail = async ({
+  to,
+  subject,
+  html,
+}) => {
 
   try {
-    // Always resolve Office365 to IPv4
-    const smtpHost = await dns.lookup("smtp.office365.com", {
-      family: 4,
-    });
 
-    console.log("🌐 Office365 IPv4:", smtpHost.address);
-
-    // Create a fresh SMTP connection for this email
-    transporter = nodemailer.createTransport({
-      host: smtpHost.address,
-      port: 587,
-      secure: false,
-      requireTLS: true,
-
-      auth: {
-        user: process.env.OUTLOOK_EMAIL,
-        pass: process.env.OUTLOOK_PASSWORD,
-      },
-
-      tls: {
-        servername: "smtp.office365.com",
-        minVersion: "TLSv1.2",
-      },
-
-      connectionTimeout: 30000,
-      greetingTimeout: 30000,
-      socketTimeout: 30000,
-    });
-
-    console.log(`📨 Sending email to: ${to}`);
-
-    // Verify this fresh connection
-    await transporter.verify();
-
-    console.log("✅ Outlook SMTP Server Ready");
-
-    // Send email
     const info = await transporter.sendMail({
+
       from: `"${process.env.EMAIL_NAME}" <${process.env.OUTLOOK_EMAIL}>`,
+
       to,
+
       subject,
+
       html,
+
     });
 
-    console.log("✅ Email Sent Successfully:", info.messageId);
+    console.log(
+      "✅ Email Sent Successfully:",
+      info.messageId
+    );
 
     return info;
 
   } catch (error) {
-    console.error("❌ Outlook Send Mail Error:", error.message);
-    throw error;
 
-  } finally {
-    // Close this SMTP connection after sending
-    if (transporter) {
-      transporter.close();
-      console.log("🔌 SMTP Connection Closed");
-    }
+    console.error(
+      "❌ Outlook Send Mail Error:",
+      error.message
+    );
+
+    throw error;
   }
 };
+
 
 module.exports = sendEmail;
