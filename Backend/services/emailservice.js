@@ -1,68 +1,42 @@
-const dns = require("dns").promises;
 const nodemailer = require("nodemailer");
 
-let transporter = null;
+const transporter = nodemailer.createTransport({
+  host: "smtp.office365.com",
+  port: 587,
+  secure: false,
+  requireTLS: true,
 
-// Create SMTP transporter using IPv4
-const createTransporter = async () => {
-  try {
-    // Resolve smtp.office365.com to IPv4
-    const result = await dns.lookup("smtp.office365.com", {
-      family: 4,
-    });
+  family: 4,
 
-    console.log("🌐 Office365 IPv4:", result.address);
+  auth: {
+    user: process.env.OUTLOOK_EMAIL,
+    pass: process.env.OUTLOOK_PASSWORD,
+  },
 
-    transporter = nodemailer.createTransport({
-      host: result.address,
-      port: 587,
-      secure: false,
-      requireTLS: true,
+  connectionTimeout: 30000,
+  greetingTimeout: 30000,
+  socketTimeout: 30000,
+});
 
-      auth: {
-        user: process.env.OUTLOOK_EMAIL,
-        pass: process.env.OUTLOOK_PASSWORD,
-      },
-
-      tls: {
-        servername: "smtp.office365.com",
-        minVersion: "TLSv1.2",
-      },
-
-      pool: true,
-      maxConnections: 1,
-      maxMessages: 100,
-
-      connectionTimeout: 30000,
-      greetingTimeout: 30000,
-      socketTimeout: 30000,
-    });
-
-    await transporter.verify();
-
-    console.log("✅ Outlook SMTP Server Ready");
-
-  } catch (error) {
-    console.error("❌ Outlook SMTP Setup Error:", error.message);
-    transporter = null;
+transporter.verify((error) => {
+  if (error) {
+    console.error(
+      "❌ Outlook SMTP Verify Error:",
+      error.message
+    );
+  } else {
+    console.log(
+      "✅ Outlook SMTP Server Ready"
+    );
   }
-};
+});
 
-
-// Send Email
-const sendEmail = async ({ to, subject, html }) => {
+const sendEmail = async ({
+  to,
+  subject,
+  html,
+}) => {
   try {
-
-    // Create transporter if not available
-    if (!transporter) {
-      await createTransporter();
-    }
-
-    // If still unavailable, stop
-    if (!transporter) {
-      throw new Error("SMTP transporter is not available");
-    }
-
     console.log(`📨 Sending email to: ${to}`);
 
     const info = await transporter.sendMail({
@@ -72,17 +46,21 @@ const sendEmail = async ({ to, subject, html }) => {
       html,
     });
 
-    console.log("✅ Email Sent Successfully:", info.messageId);
+    console.log(
+      "✅ Email Sent Successfully:",
+      info.messageId
+    );
 
     return info;
 
   } catch (error) {
-
-    console.error("❌ Outlook Send Mail Error:", error.message);
+    console.error(
+      "❌ Outlook Send Mail Error:",
+      error.message
+    );
 
     throw error;
   }
 };
-
 
 module.exports = sendEmail;
