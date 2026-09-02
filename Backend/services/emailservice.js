@@ -1,11 +1,17 @@
 const nodemailer = require("nodemailer");
 
+// ============================================================
+// OUTLOOK SMTP TRANSPORTER
+// ============================================================
+
 const transporter = nodemailer.createTransport({
   host: "smtp.office365.com",
   port: 587,
+
   secure: false,
   requireTLS: true,
 
+  // Force IPv4
   family: 4,
 
   auth: {
@@ -13,10 +19,19 @@ const transporter = nodemailer.createTransport({
     pass: process.env.OUTLOOK_PASSWORD,
   },
 
+  // Keep SMTP connection alive
+  pool: true,
+  maxConnections: 1,
+  maxMessages: 100,
+
   connectionTimeout: 30000,
   greetingTimeout: 30000,
   socketTimeout: 30000,
 });
+
+// ============================================================
+// SMTP VERIFY
+// ============================================================
 
 transporter.verify((error) => {
   if (error) {
@@ -30,6 +45,10 @@ transporter.verify((error) => {
     );
   }
 });
+
+// ============================================================
+// SEND EMAIL
+// ============================================================
 
 const sendEmail = async ({
   to,
