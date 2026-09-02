@@ -1,18 +1,11 @@
 const nodemailer = require("nodemailer");
 
-// ============================================================
-// OUTLOOK / MICROSOFT 365 SMTP CONFIGURATION
-// ============================================================
-
 const transporter = nodemailer.createTransport({
   host: "smtp.office365.com",
   port: 587,
-
-  // Port 587 uses STARTTLS
   secure: false,
   requireTLS: true,
 
-  // Force IPv4
   family: 4,
 
   auth: {
@@ -25,11 +18,7 @@ const transporter = nodemailer.createTransport({
   socketTimeout: 30000,
 });
 
-// ============================================================
-// CHECK SMTP CONNECTION
-// ============================================================
-
-transporter.verify((error, success) => {
+transporter.verify((error) => {
   if (error) {
     console.error(
       "❌ Outlook SMTP Verify Error:",
@@ -42,19 +31,13 @@ transporter.verify((error, success) => {
   }
 });
 
-// ============================================================
-// SEND EMAIL
-// ============================================================
-
 const sendEmail = async ({
   to,
   subject,
   html,
 }) => {
   try {
-    console.log(
-      `📨 Sending email to: ${to}`
-    );
+    console.log(`📨 Sending email to: ${to}`);
 
     const info = await transporter.sendMail({
       from: `"${process.env.EMAIL_NAME}" <${process.env.OUTLOOK_EMAIL}>`,

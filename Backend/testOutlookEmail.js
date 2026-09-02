@@ -1,79 +1,3 @@
-// require("dotenv").config();
-
-// const nodemailer = require("nodemailer");
-
-// const transporter = nodemailer.createTransport({
-
-//   host: "smtp.office365.com",
-
-//   port: 587,
-
-//   secure: false,
-
-//   auth: {
-//     user: process.env.OUTLOOK_EMAIL,
-//     pass: process.env.OUTLOOK_PASSWORD,
-//   },
-
-//   tls: {
-//     ciphers: "SSLv3",
-//   },
-
-// });
-
-
-// async function testEmail() {
-
-//   try {
-
-//     await transporter.verify();
-
-//     console.log(
-//       "✅ Outlook SMTP Connected Successfully"
-//     );
-
-
-//     await transporter.sendMail({
-
-//       from: `"${process.env.EMAIL_NAME}" <${process.env.OUTLOOK_EMAIL}>`,
-
-//       to: process.env.OUTLOOK_EMAIL,
-
-//       subject: "Utkal Hospital Outlook SMTP Test",
-
-//       html: `
-
-//         <h2>Outlook SMTP Test Successful</h2>
-
-//         <p>
-//           This is a test email from the
-//           Utkal Hospital Patient Feedback System.
-//         </p>
-
-//       `,
-
-//     });
-
-
-//     console.log(
-//       "✅ Test Email Sent Successfully"
-//     );
-
-//   } catch (error) {
-
-//     console.error(
-//       "❌ Outlook SMTP Error:"
-//     );
-
-//     console.error(error);
-
-//   }
-
-// }
-
-
-// testEmail();
-
 require("dotenv").config();
 
 const nodemailer = require("nodemailer");
@@ -97,7 +21,7 @@ async function testEmail() {
     const info = await transporter.sendMail({
       from: `"${process.env.EMAIL_NAME}" <${process.env.OUTLOOK_EMAIL}>`,
 
-      // তোমার Gmail address
+     // my gmail option
       to: "arghyadey043@gmail.com",
 
       subject: "Utkal Hospital - Gmail Test",
