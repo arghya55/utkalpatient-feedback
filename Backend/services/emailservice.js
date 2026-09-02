@@ -1,45 +1,68 @@
-const dns = require("dns");
-
-// Prefer IPv4 instead of IPv6
-dns.setDefaultResultOrder("ipv4first");
-
+const dns = require("dns").promises;
 const nodemailer = require("nodemailer");
 
-const transporter = nodemailer.createTransport({
-  host: "smtp.office365.com",
-  port: 587,
-  secure: false,
-  requireTLS: true,
+let transporter = null;
 
-  auth: {
-    user: process.env.OUTLOOK_EMAIL,
-    pass: process.env.OUTLOOK_PASSWORD,
-  },
+// Create SMTP transporter using IPv4
+const createTransporter = async () => {
+  try {
+    // Resolve smtp.office365.com to IPv4
+    const result = await dns.lookup("smtp.office365.com", {
+      family: 4,
+    });
 
-  pool: true,
-  maxConnections: 1,
-  maxMessages: 100,
+    console.log("🌐 Office365 IPv4:", result.address);
 
-  connectionTimeout: 30000,
-  greetingTimeout: 30000,
-  socketTimeout: 30000,
+    transporter = nodemailer.createTransport({
+      host: result.address,
+      port: 587,
+      secure: false,
+      requireTLS: true,
 
-  tls: {
-    minVersion: "TLSv1.2",
-    servername: "smtp.office365.com",
-  },
-});
+      auth: {
+        user: process.env.OUTLOOK_EMAIL,
+        pass: process.env.OUTLOOK_PASSWORD,
+      },
 
-transporter.verify((error) => {
-  if (error) {
-    console.error("❌ Outlook SMTP Verify Error:", error.message);
-  } else {
+      tls: {
+        servername: "smtp.office365.com",
+        minVersion: "TLSv1.2",
+      },
+
+      pool: true,
+      maxConnections: 1,
+      maxMessages: 100,
+
+      connectionTimeout: 30000,
+      greetingTimeout: 30000,
+      socketTimeout: 30000,
+    });
+
+    await transporter.verify();
+
     console.log("✅ Outlook SMTP Server Ready");
-  }
-});
 
+  } catch (error) {
+    console.error("❌ Outlook SMTP Setup Error:", error.message);
+    transporter = null;
+  }
+};
+
+
+// Send Email
 const sendEmail = async ({ to, subject, html }) => {
   try {
+
+    // Create transporter if not available
+    if (!transporter) {
+      await createTransporter();
+    }
+
+    // If still unavailable, stop
+    if (!transporter) {
+      throw new Error("SMTP transporter is not available");
+    }
+
     console.log(`📨 Sending email to: ${to}`);
 
     const info = await transporter.sendMail({
@@ -52,10 +75,14 @@ const sendEmail = async ({ to, subject, html }) => {
     console.log("✅ Email Sent Successfully:", info.messageId);
 
     return info;
+
   } catch (error) {
+
     console.error("❌ Outlook Send Mail Error:", error.message);
+
     throw error;
   }
 };
+
 
 module.exports = sendEmail;
